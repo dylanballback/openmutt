@@ -19,8 +19,8 @@ async def controller(odrive1, odrive2, odrive3):
             odrive1.set_position(0)
             print("Set odrive to postion 0")
             await asyncio.sleep(3)
-            odrive1.set_position(1)
-            print("Set odrive to postion 1")
+            odrive1.set_position(3)
+            print("Set odrive to postion 3")
             await asyncio.sleep(3)
             
     

@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller(odrive1, odrive2, odrive3):
-        odrive1.set_position(0)
+        #odrive1.set_position(0)
         print("Set odrive to postion 0")
         #odrive2.set_position(0)
         #odrive3.set_position(0)
@@ -15,13 +15,13 @@ async def controller(odrive1, odrive2, odrive3):
         stop_at = datetime.now() + timedelta(seconds=15)
         while datetime.now() < stop_at:
             await asyncio.sleep(0) #Need this for async to work.
-            #print(odrive1.position)
-            odrive1.set_position(0)
-            print("Set odrive to postion 0")
-            await asyncio.sleep(3)
-            odrive1.set_position(3)
-            print("Set odrive to postion 3")
-            await asyncio.sleep(3)
+            print(odrive1.position, odrive2.position)
+            #odrive1.set_position(0)
+            #print("Set odrive to postion 0")
+            #await asyncio.sleep(3)
+            #odrive1.set_position(3)
+            #print("Set odrive to postion 3")
+            #await asyncio.sleep(3)
             
     
             
@@ -36,7 +36,7 @@ async def controller(odrive1, odrive2, odrive3):
 # Run multiple busses.
 async def main():
     #Set up Node_ID 1
-    odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = True)
+    odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = False)
     odrive1.initCanBus()
 
     #Set up Node_ID 2 

@@ -13,8 +13,9 @@ async def controller(odrive1, odrive2, odrive3):
         stop_at = datetime.now() + timedelta(seconds=15)
         while datetime.now() < stop_at:
             await asyncio.sleep(0) #Need this for async to work.
-            print(odrive1.position)
+            #print(odrive1.position)
             odrive1.set_position(1)
+            print("Set odrive to postion 1")
 
             
     

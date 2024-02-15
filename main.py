@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller(odrive1, odrive2, odrive3):
         #odrive1.set_position(0)
-        print("Set odrive to postion 0")
+        #print("Set odrive to postion 0")
         #odrive2.set_position(0)
         #odrive3.set_position(0)
         

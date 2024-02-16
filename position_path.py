@@ -1200,7 +1200,7 @@ def get_raw_position_over_time(trial_id, node_id):
 
 
 async def smooth_send_positions_to_motor(odrive1, odrive2):
-    dt = 0.005
+    dt = 0.002
     # Run for set time delay example runs for 15 seconds.
     #stop_at = datetime.now() + timedelta(seconds=60)
     #while datetime.now() < stop_at:

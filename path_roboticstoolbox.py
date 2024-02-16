@@ -139,9 +139,9 @@ def send_positions_to_motor(recorded_positions, total_time, tacc, qdmax=None):
     print("   ")
 
 # Example usage
-recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)  # Example IDs
+recorded_times, recorded_positions, _, _ = get_raw_position_over_time(29, 2)  # Example IDs
 dt = 0.1  # Time step for the trajectory
-total_time = 20  # Total time to complete the path in seconds
+total_time = 15  # Total time to complete the path in seconds
 
 #for pos in recorded_positions:
 #                print(pos)

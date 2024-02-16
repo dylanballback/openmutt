@@ -1208,7 +1208,7 @@ async def smooth_send_positions_to_motor(odrive1, odrive2):
         print(i)
         for pos1, pos2 in zip(nodeID_1_pos, nodeID_2_pos):
             odrive1.set_position(pos1)
-            await asyncio.sleep(0.001)
+            #await asyncio.sleep(0.001)
             odrive2.set_position(pos2)
             print(f"Setting motor position to 1: {pos1}")
             print(f"Setting motor position to 2: {pos2}")

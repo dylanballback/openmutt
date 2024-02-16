@@ -45,11 +45,14 @@ def get_raw_position_over_time(trial_id, node_id):
     return times, positions, trial_id, node_id
 
 async def smooth_send_positions_to_motor(odrive1):
-     dt = 0.01
-     for pos in new_positions:
-        odrive1.set_position(pos)
-        print(f"Setting motor position to: {pos}") 
-        await asyncio.sleep(dt)
+     dt = 0.005
+     #Run for set time delay example runs for 15 seconds.
+     stop_at = datetime.now() + timedelta(seconds=30)
+     while datetime.now() < stop_at:
+        for pos in new_positions:
+            odrive1.set_position(pos)
+            print(f"Setting motor position to: {pos}") 
+            await asyncio.sleep(dt)
 
 
 # Function to send positions to the motor
@@ -66,7 +69,7 @@ async def send_positions_to_motor(odrive1, positions):
     #Run for set time delay example runs for 15 seconds.
     stop_at = datetime.now() + timedelta(seconds=30)
     while datetime.now() < stop_at:
-        dt = 0.001
+        dt = 0.15
         # Iterate over the positions and send them to the motor
         for pos in positions.flatten():
             odrive1.set_position(pos)

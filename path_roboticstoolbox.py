@@ -127,8 +127,9 @@ def send_positions_to_motor(recorded_positions, total_time, tacc, qdmax=None):
     
     # Iterate over the positions and send them to the motor
     for pos in positions.flatten():
-        print(f"Setting motor position to: {pos}") 
-        position_list.append(pos)
+        formatted_pos = f"{pos:.8f}"
+        print(f"Setting motor position to: {formatted_pos}") 
+        position_list.append(formatted_pos)
         time.sleep(dt)
     print("   ")
     print("   ")

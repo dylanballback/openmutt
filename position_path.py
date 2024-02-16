@@ -63,13 +63,15 @@ async def send_positions_to_motor(odrive1, positions):
     - qdmax (float): Maximum speed for the trajectory.
     """
     
-    
-    dt = 0.01
-    # Iterate over the positions and send them to the motor
-    for pos in positions.flatten():
-        odrive1.set_position(pos)
-        print(f"Setting motor position to: {pos}") 
-        await asyncio.sleep(dt)
+    #Run for set time delay example runs for 15 seconds.
+    stop_at = datetime.now() + timedelta(seconds=30)
+    while datetime.now() < stop_at:
+        dt = 0.005
+        # Iterate over the positions and send them to the motor
+        for pos in positions.flatten():
+            odrive1.set_position(pos)
+            print(f"Setting motor position to: {pos}") 
+            await asyncio.sleep(dt)
 
 
 

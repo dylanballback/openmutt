@@ -90,7 +90,7 @@ async def main():
     odrive3.initCanBus()
 
     # Example usage
-    recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)
+    #recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)
     total_time = 10  # Total time to complete the path in seconds
     tacc = 0.5  # Acceleration time for the trajectory
     qdmax = 0.5  # Maximum speed for the trajectory

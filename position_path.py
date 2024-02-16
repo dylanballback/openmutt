@@ -53,7 +53,7 @@ async def smooth_send_positions_to_motor(odrive1):
             odrive1.set_position(pos)
             print(f"Setting motor position to: {pos}") 
             await asyncio.sleep(dt)
-            
+
      odrive1.running = False
 
 # Function to send positions to the motor
@@ -132,8 +132,8 @@ async def main():
     odrive3.initCanBus()
 
     # Example usage
-    recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)
-    total_time = 10  # Total time to complete the path in seconds
+    #recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)
+    #total_time = 10  # Total time to complete the path in seconds
 
     
     #add each odrive to the async loop so they will run.

@@ -66,7 +66,7 @@ async def send_positions_to_motor(odrive1, positions):
     #Run for set time delay example runs for 15 seconds.
     stop_at = datetime.now() + timedelta(seconds=30)
     while datetime.now() < stop_at:
-        dt = 0.005
+        dt = 0.001
         # Iterate over the positions and send them to the motor
         for pos in positions.flatten():
             odrive1.set_position(pos)

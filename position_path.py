@@ -101,7 +101,7 @@ def generate_trajectory_with_mstraj(recorded_positions, dt, tacc, qdmax=None, pl
 
 
 # Function to send positions to the motor
-async def send_positions_to_motor(odrive1, recorded_positions, total_time, tacc, qdmax=None):
+async def send_positions_to_motor(odrive1, positions):
     """
     Sends the position commands to the motor to repeat the path.
     Parameters:
@@ -110,14 +110,8 @@ async def send_positions_to_motor(odrive1, recorded_positions, total_time, tacc,
     - tacc (float): Acceleration time for the trajectory.
     - qdmax (float): Maximum speed for the trajectory.
     """
-    # Calculate dt based on total time and number of positions
-    num_positions = len(recorded_positions)
-    dt = 0.25
-
-    # Generate the trajectory
-    times, positions, velocities, accelerations = generate_trajectory_with_mstraj(
-        recorded_positions, dt, tacc, qdmax
-    )
+    
+    
     dt = 0.01
     # Iterate over the positions and send them to the motor
     for pos in positions.flatten():
@@ -182,7 +176,11 @@ async def main():
     total_time = 10  # Total time to complete the path in seconds
     tacc = 0.5  # Acceleration time for the trajectory
     qdmax = 0.5  # Maximum speed for the trajectory
-
+    dt = 0.25
+    # Generate the trajectory
+    times, positions, velocities, accelerations = generate_trajectory_with_mstraj(
+        recorded_positions, dt, tacc, qdmax
+    )
     
 
     #add each odrive to the async loop so they will run.
@@ -191,7 +189,7 @@ async def main():
         odrive2.loop(),
         odrive3.loop(),
         controller(odrive1, odrive2, odrive3),
-        send_positions_to_motor(odrive1, recorded_positions, total_time, tacc, qdmax=qdmax)
+        send_positions_to_motor(odrive1, positions)
     )
 
 if __name__ == "__main__":

@@ -3,7 +3,6 @@ import asyncio
 from datetime import datetime, timedelta
 import numpy as np
 import matplotlib.pyplot as plt
-from scipy.interpolate import CubicSpline
 from roboticstoolbox import mstraj
 
 # Define path to database for pyodrivecan package.

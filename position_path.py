@@ -54,7 +54,6 @@ async def smooth_send_positions_to_motor(odrive1):
         print(f"Setting motor position to: {pos}") 
         await asyncio.sleep(dt)
 
-     odrive1.running = False
 
 # Function to send positions to the motor
 async def send_positions_to_motor(odrive1, positions):

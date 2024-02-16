@@ -45,7 +45,7 @@ def get_raw_position_over_time(trial_id, node_id):
     return times, positions, trial_id, node_id
 
 async def smooth_send_positions_to_motor(odrive1):
-     dt = 0.005
+     dt = 0.01
      #Run for set time delay example runs for 15 seconds.
      stop_at = datetime.now() + timedelta(seconds=30)
      while datetime.now() < stop_at:
@@ -53,7 +53,8 @@ async def smooth_send_positions_to_motor(odrive1):
             odrive1.set_position(pos)
             print(f"Setting motor position to: {pos}") 
             await asyncio.sleep(dt)
-
+            
+     odrive1.running = False
 
 # Function to send positions to the motor
 async def send_positions_to_motor(odrive1, positions):
@@ -76,6 +77,8 @@ async def send_positions_to_motor(odrive1, positions):
             print(f"Setting motor position to: {pos}") 
             await asyncio.sleep(dt)
 
+    odrive1.running = False
+    
 
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
@@ -121,11 +124,11 @@ async def main():
     odrive1.initCanBus()
 
     #Set up Node_ID 2 
-    odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = False)
+    odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = True)
     odrive2.initCanBus()
 
     #Set up Node_ID 3 
-    odrive3 = pyodrivecan.ODriveCAN(3, closed_loop_control_flag = False)
+    odrive3 = pyodrivecan.ODriveCAN(3, closed_loop_control_flag = True)
     odrive3.initCanBus()
 
     # Example usage

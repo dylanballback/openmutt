@@ -45,7 +45,7 @@ def get_raw_position_over_time(trial_id, node_id):
     return times, positions, trial_id, node_id
 
 async def smooth_send_positions_to_motor(odrive1):
-     dt = 0.125
+     dt = 0.05
      for pos in new_positions:
         odrive1.set_position(pos)
         print(f"Setting motor position to: {pos}") 

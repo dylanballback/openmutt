@@ -41,7 +41,7 @@ def get_raw_position_over_time(trial_id, node_id):
     return times, positions, trial_id, node_id
 
 
-def generate_trajectory_with_mstraj(recorded_positions, dt, tacc, qdmax=None, plot=True):
+def generate_trajectory_with_mstraj(recorded_positions, dt, tacc, qdmax=None, plot=False):
     """
     Generates a trajectory using mstraj, fitting the recorded path with smooth acceleration and deceleration.
 
@@ -151,5 +151,5 @@ qdmax = 2 # Optional: Maximum speed for the trajectory
 times, positions, velocities, accelerations = generate_trajectory_with_mstraj(recorded_positions, dt, tacc, qdmax=qdmax)
 
 # Send positions to motor
-##send_positions_to_motor(recorded_positions, total_time, tacc, qdmax=qdmax)
+send_positions_to_motor(recorded_positions, total_time, tacc, qdmax=qdmax)
 

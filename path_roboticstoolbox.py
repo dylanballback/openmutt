@@ -9,6 +9,7 @@ import time
 # Define path to database for pyodrivecan package.
 database = pyodrivecan.OdriveDatabase('odrive_data.db')
 
+position_list = []
 
 def get_raw_position_over_time(trial_id, node_id):
     """
@@ -122,10 +123,20 @@ def send_positions_to_motor(recorded_positions, total_time, tacc, qdmax=None):
         recorded_positions, dt, tacc, qdmax
     )
     dt = 0.01
+
+    
     # Iterate over the positions and send them to the motor
     for pos in positions.flatten():
         print(f"Setting motor position to: {pos}") 
+        position_list.append(pos)
         time.sleep(dt)
+    print("   ")
+    print("   ")
+    print("   ")
+    print(position_list)
+    print("   ")
+    print("   ")
+    print("   ")
 
 # Example usage
 recorded_times, recorded_positions, _, _ = get_raw_position_over_time(10, 1)  # Example IDs

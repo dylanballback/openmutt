@@ -120,7 +120,7 @@ async def controller(odrive1, odrive2, odrive3):
 # Run multiple busses.
 async def main():
     #Set up Node_ID 1
-    #odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = True)
+    odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = True)
     #odrive1.initCanBus()
 
     #Set up Node_ID 2 

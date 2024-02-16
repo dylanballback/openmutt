@@ -50,7 +50,7 @@ async def smooth_send_positions_to_motor(odrive1):
      #stop_at = datetime.now() + timedelta(seconds=30)
      #while datetime.now() < stop_at:
      for pos in new_positions:
-        odrive1.set_position(pos)
+        #odrive1.set_position(pos)
         print(f"Setting motor position to: {pos}") 
         await asyncio.sleep(dt)
 
@@ -124,7 +124,7 @@ async def main():
     odrive1.initCanBus()
 
     #Set up Node_ID 2 
-    odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = True)
+    odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = False)
     odrive2.initCanBus()
 
     #Set up Node_ID 3 

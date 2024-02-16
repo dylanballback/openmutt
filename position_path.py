@@ -50,7 +50,7 @@ async def smooth_send_positions_to_motor(odrive1):
      stop_at = datetime.now() + timedelta(seconds=30)
      while datetime.now() < stop_at:
         for pos in new_positions:
-            odrive1.set_position(pos)
+            #odrive1.set_position(pos)
             print(f"Setting motor position to: {pos}") 
             await asyncio.sleep(dt)
 
@@ -73,7 +73,7 @@ async def send_positions_to_motor(odrive1, positions):
         dt = 0.15
         # Iterate over the positions and send them to the motor
         for pos in positions.flatten():
-            odrive1.set_position(pos)
+            #odrive1.set_position(pos)
             print(f"Setting motor position to: {pos}") 
             await asyncio.sleep(dt)
 
@@ -120,8 +120,8 @@ async def controller(odrive1, odrive2, odrive3):
 # Run multiple busses.
 async def main():
     #Set up Node_ID 1
-    odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = True)
-    odrive1.initCanBus()
+    #odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = True)
+    #odrive1.initCanBus()
 
     #Set up Node_ID 2 
     odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = True)
@@ -138,7 +138,7 @@ async def main():
     
     #add each odrive to the async loop so they will run.
     await asyncio.gather(
-        odrive1.loop(),
+        #odrive1.loop(),
         odrive2.loop(),
         odrive3.loop(),
         #controller(odrive1, odrive2, odrive3),

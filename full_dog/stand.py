@@ -11,7 +11,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
                     back_right_knee, back_right_shoulder, back_right_hip):
         
         sleep_time = 10
-        
+        """
         front_left_knee.clear_errors(identify=False)
         await asyncio.sleep(sleep_time)
         front_left_shoulder.clear_errors(identify=False)
@@ -39,7 +39,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
         await asyncio.sleep(sleep_time)
         back_right_hip.clear_errors(identify=False)
         await asyncio.sleep(sleep_time)
-        """
+        
         front_left_knee.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
         front_left_shoulder.setAxisState("closed_loop_control")
@@ -90,7 +90,7 @@ async def main():
     front_left_knee = pyodrivecan.ODriveCAN(0)
     front_left_knee.initCanBus()
     time.sleep(sleep_time)
-    front_left_knee.clear_errors(identify=False)
+    #front_left_knee.clear_errors(identify=False)
 
     front_left_shoulder = pyodrivecan.ODriveCAN(1)
     front_left_shoulder.initCanBus()

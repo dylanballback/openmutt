@@ -1,6 +1,7 @@
 import pyodrivecan
 import asyncio
 from datetime import datetime, timedelta
+import time
 
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
@@ -16,18 +17,21 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
         await asyncio.sleep(1)
         front_left_hip.clear_errors(identify=False)
         await asyncio.sleep(1)
+
         front_right_knee.clear_errors(identify=False)
         await asyncio.sleep(1)
         front_right_shoulder.clear_errors(identify=False)
         await asyncio.sleep(1)
         front_right_hip.clear_errors(identify=False)
         await asyncio.sleep(1)
+
         back_left_knee.clear_errors(identify=False)
         await asyncio.sleep(1)
         back_left_shoulder.clear_errors(identify=False)
         await asyncio.sleep(1)
         back_left_hip.clear_errors(identify=False)
         await asyncio.sleep(1)
+
         back_right_knee.clear_errors(identify=False)
         await asyncio.sleep(1)
         back_right_shoulder.clear_errors(identify=False)
@@ -84,45 +88,57 @@ async def main():
     #Front Left
     front_left_knee = pyodrivecan.ODriveCAN(0)
     front_left_knee.initCanBus()
+    time.sleep(1)
+    front_left_knee.clear_errors(identify=False)
 
     front_left_shoulder = pyodrivecan.ODriveCAN(1)
     front_left_shoulder.initCanBus()
+    time.sleep(1)
 
     front_left_hip = pyodrivecan.ODriveCAN(2)
     front_left_hip.initCanBus()
+    time.sleep(1)
 
     #Front Right 
     front_right_knee = pyodrivecan.ODriveCAN(5)
     front_right_knee.initCanBus()
+    time.sleep(1)
 
     front_right_shoulder = pyodrivecan.ODriveCAN(4)
     front_right_shoulder.initCanBus()
+    time.sleep(1)
 
     front_right_hip = pyodrivecan.ODriveCAN(3)
     front_right_hip.initCanBus()
+    time.sleep(1)
 
     #Back of Dog
 
     #Back Left 
     back_left_knee = pyodrivecan.ODriveCAN(6)
     back_left_knee.initCanBus()
+    time.sleep(1)
 
     back_left_shoulder = pyodrivecan.ODriveCAN(7)
     back_left_shoulder.initCanBus()
+    time.sleep(1)
 
     back_left_hip = pyodrivecan.ODriveCAN(8)
     back_left_hip.initCanBus()
-
+    time.sleep(1)
+    
     #Back Right 
     back_right_knee = pyodrivecan.ODriveCAN(11)
     back_right_knee.initCanBus()
-
+    time.sleep(1)
+    
     back_right_shoulder = pyodrivecan.ODriveCAN(10)
     back_right_shoulder.initCanBus()
+    time.sleep(1)
 
     back_right_hip = pyodrivecan.ODriveCAN(9)
     back_right_hip.initCanBus()
-
+    time.sleep(1)
 
     try:
         await asyncio.gather(

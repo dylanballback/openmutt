@@ -9,7 +9,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
                     back_left_knee, back_left_shoulder, back_left_hip,
                     back_right_knee, back_right_shoulder, back_right_hip):
         
-
+        """
         front_left_knee.clear_errors(identify=False)
         await asyncio.sleep(0.2)
         front_left_shoulder.clear_errors(identify=False)
@@ -58,7 +58,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
         await asyncio.sleep(0.2)
         back_right_hip.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
-        
+        """
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=15)

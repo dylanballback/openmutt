@@ -59,45 +59,45 @@ async def main():
     #Front of Dog
 
     #Front Left
-    front_left_knee = pyodrivecan.ODriveCAN(0, closed_loop_control_flag = False)
+    front_left_knee = pyodrivecan.ODriveCAN(0)
     front_left_knee.initCanBus()
 
-    front_left_shoulder = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = False)
+    front_left_shoulder = pyodrivecan.ODriveCAN(1)
     front_left_shoulder.initCanBus()
 
-    front_left_hip = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = False)
+    front_left_hip = pyodrivecan.ODriveCAN(2)
     front_left_hip.initCanBus()
 
     #Front Right 
-    front_right_knee = pyodrivecan.ODriveCAN(5, closed_loop_control_flag = False)
+    front_right_knee = pyodrivecan.ODriveCAN(5)
     front_right_knee.initCanBus()
 
-    front_right_shoulder = pyodrivecan.ODriveCAN(4, closed_loop_control_flag = False)
+    front_right_shoulder = pyodrivecan.ODriveCAN(4)
     front_right_shoulder.initCanBus()
 
-    front_right_hip = pyodrivecan.ODriveCAN(3, closed_loop_control_flag = False)
+    front_right_hip = pyodrivecan.ODriveCAN(3)
     front_right_hip.initCanBus()
 
     #Back of Dog
 
     #Back Left 
-    back_left_knee = pyodrivecan.ODriveCAN(6, closed_loop_control_flag = False)
+    back_left_knee = pyodrivecan.ODriveCAN(6)
     back_left_knee.initCanBus()
 
-    back_left_shoulder = pyodrivecan.ODriveCAN(7, closed_loop_control_flag = False)
+    back_left_shoulder = pyodrivecan.ODriveCAN(7)
     back_left_shoulder.initCanBus()
 
-    back_left_hip = pyodrivecan.ODriveCAN(8, closed_loop_control_flag = False)
+    back_left_hip = pyodrivecan.ODriveCAN(8)
     back_left_hip.initCanBus()
 
     #Back Right 
-    back_right_knee = pyodrivecan.ODriveCAN(11, closed_loop_control_flag = False)
+    back_right_knee = pyodrivecan.ODriveCAN(11)
     back_right_knee.initCanBus()
 
-    back_right_shoulder = pyodrivecan.ODriveCAN(10, closed_loop_control_flag = False)
+    back_right_shoulder = pyodrivecan.ODriveCAN(10)
     back_right_shoulder.initCanBus()
 
-    back_right_hip = pyodrivecan.ODriveCAN(9, closed_loop_control_flag = False)
+    back_right_hip = pyodrivecan.ODriveCAN(9)
     back_right_hip.initCanBus()
 
 

@@ -82,63 +82,62 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
 
 # Run multiple busses.
 async def main():
-
+    sleep_time = 10
     #Front of Dog
 
     #Front Left
     front_left_knee = pyodrivecan.ODriveCAN(0)
     front_left_knee.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
     front_left_knee.clear_errors(identify=False)
 
     front_left_shoulder = pyodrivecan.ODriveCAN(1)
     front_left_shoulder.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     front_left_hip = pyodrivecan.ODriveCAN(2)
     front_left_hip.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     #Front Right 
     front_right_knee = pyodrivecan.ODriveCAN(5)
     front_right_knee.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     front_right_shoulder = pyodrivecan.ODriveCAN(4)
     front_right_shoulder.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     front_right_hip = pyodrivecan.ODriveCAN(3)
     front_right_hip.initCanBus()
-    time.sleep(1)
-
+    time.sleep(sleep_time)
     #Back of Dog
 
     #Back Left 
     back_left_knee = pyodrivecan.ODriveCAN(6)
     back_left_knee.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     back_left_shoulder = pyodrivecan.ODriveCAN(7)
     back_left_shoulder.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     back_left_hip = pyodrivecan.ODriveCAN(8)
     back_left_hip.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
     
     #Back Right 
     back_right_knee = pyodrivecan.ODriveCAN(11)
     back_right_knee.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
     
     back_right_shoulder = pyodrivecan.ODriveCAN(10)
     back_right_shoulder.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     back_right_hip = pyodrivecan.ODriveCAN(9)
     back_right_hip.initCanBus()
-    time.sleep(1)
+    time.sleep(sleep_time)
 
     try:
         await asyncio.gather(

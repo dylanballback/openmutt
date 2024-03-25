@@ -10,34 +10,35 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
                     back_left_knee, back_left_shoulder, back_left_hip,
                     back_right_knee, back_right_shoulder, back_right_hip):
         
+        sleep_time = 10
         
         front_left_knee.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         front_left_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         front_left_hip.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
 
         front_right_knee.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         front_right_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         front_right_hip.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
 
         back_left_knee.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         back_left_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         back_left_hip.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
 
         back_right_knee.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         back_right_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         back_right_hip.clear_errors(identify=False)
-        await asyncio.sleep(1)
+        await asyncio.sleep(sleep_time)
         """
         front_left_knee.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
@@ -144,19 +145,15 @@ async def main():
             front_left_knee.loop(),
             front_left_shoulder.loop(),
             front_left_hip.loop(),
-
             front_right_knee.loop(),
             front_right_shoulder.loop(),
             front_right_hip.loop(),
-
             back_left_knee.loop(),
             back_left_shoulder.loop(),
             back_left_hip.loop(),
-
             back_right_knee.loop(),
             back_right_shoulder.loop(),
             back_right_hip.loop(),
-
             controller(front_left_knee, front_left_shoulder, front_left_hip,
                         front_right_knee, front_right_shoulder, front_right_hip,
                         back_left_knee, back_left_shoulder, back_left_hip,
@@ -175,7 +172,6 @@ async def main():
         back_right_knee.estop()
         back_right_shoulder.estop()
         back_right_hip.estop()
-
     finally:
         front_left_knee.estop()
         front_left_shoulder.estop()

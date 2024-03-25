@@ -11,35 +11,35 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
                     back_right_knee, back_right_shoulder, back_right_hip):
         
         sleep_time = 10
-        """
-        front_left_knee.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        front_left_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        front_left_hip.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-
-        front_right_knee.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        front_right_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        front_right_hip.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-
-        back_left_knee.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        back_left_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        back_left_hip.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-
-        back_right_knee.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        back_right_shoulder.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
-        back_right_hip.clear_errors(identify=False)
-        await asyncio.sleep(sleep_time)
         
+        front_left_knee.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        front_left_shoulder.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        front_left_hip.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+
+        front_right_knee.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        front_right_shoulder.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        front_right_hip.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+
+        back_left_knee.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        back_left_shoulder.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        back_left_hip.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+
+        back_right_knee.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        back_right_shoulder.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        back_right_hip.clear_errors(identify=True)
+        await asyncio.sleep(sleep_time)
+        """
         front_left_knee.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
         front_left_shoulder.setAxisState("closed_loop_control")
@@ -83,7 +83,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
 
 # Run multiple busses.
 async def main():
-    sleep_time = 10
+    sleep_time = 5
     #Front of Dog
 
     #Front Left

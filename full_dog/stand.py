@@ -3,6 +3,14 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
+#Node ID for each leg (goes from hip, shoulder, knee)
+front_left = [2, 1, 0]
+front_right = [3, 4, 5]
+
+back_left = [8, 7, 6]
+back_right = [9, 10, 11]
+
+
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller(front_left_knee, front_left_shoulder, front_left_hip,
@@ -85,8 +93,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
 async def main():
     sleep_time = 5
     #Front of Dog
-
-    #Front Left
+         
     front_left_knee = pyodrivecan.ODriveCAN(0)
     front_left_knee.initCanBus()
     time.sleep(sleep_time)

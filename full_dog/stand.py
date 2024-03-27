@@ -192,6 +192,19 @@ async def main():
         back_right_knee.estop()
         back_right_shoulder.estop()
         back_right_hip.estop()
+        front_left_knee.bus_shutdown()
+        front_left_shoulder.bus_shutdown()
+        front_left_hip.bus_shutdown()
+        front_right_knee.bus_shutdown()
+        front_right_shoulder.bus_shutdown()
+        front_right_hip.bus_shutdown()
+        back_left_knee.bus_shutdown()
+        back_left_shoulder.bus_shutdown()
+        back_left_hip.bus_shutdown()
+        back_right_knee.bus_shutdown()
+        back_right_shoulder.bus_shutdown()
+        back_right_hip.bus_shutdown()
+
 
 if __name__ == "__main__":
     asyncio.run(main())

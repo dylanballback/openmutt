@@ -12,6 +12,8 @@ documentation.
 
 import can
 import struct
+from datetime import datetime, timedelta
+
 
 node_ids = [0, 1, 2, 3, 4, 5] # must match `<odrv>.axis0.config.can.node_id`. The default is 0.
 
@@ -31,10 +33,12 @@ for node_id in node_ids:
         is_extended_id=False
     ))
 
-    # Wait for axis to enter closed loop control by scanning heartbeat messages
-    for msg in bus:
-        if msg.arbitration_id == (node_id << 5 | 0x01): # 0x01: Heartbeat
-            error, state, result, traj_done = struct.unpack('<IBBB', bytes(msg.data[:7]))
-            if state == 8: # 8: AxisState.CLOSED_LOOP_CONTROL
-                break
+    stop_at = datetime.now() + timedelta(seconds=15)
+    while datetime.now() < stop_at:
+        # Wait for axis to enter closed loop control by scanning heartbeat messages
+        for msg in bus:
+            if msg.arbitration_id == (node_id << 5 | 0x01): # 0x01: Heartbeat
+                error, state, result, traj_done = struct.unpack('<IBBB', bytes(msg.data[:7]))
+                if state == 8: # 8: AxisState.CLOSED_LOOP_CONTROL
+                    break
     

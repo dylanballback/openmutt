@@ -90,10 +90,10 @@ async def restore_config(odrv: EndpointAccess, config: dict):
 
 async def main():
     parser = argparse.ArgumentParser(description='Script to configure ODrive over CAN bus.')
-    parser.add_argument('-i', '--interface', type=str, default='socketcan', help='Interface type (e.g., socketcan, slcan). Default is socketcan.')
+    parser.add_argument('-i', '--interface', type=str, default='socketcan', required=False, help='Interface type (e.g., socketcan, slcan). Default is socketcan.')
     parser.add_argument('-c', '--channel', type=str, required=False, help='Channel/path/interface name of the device (e.g., can0, /dev/tty.usbmodem11201).')
-    parser.add_argument('-b', '--bitrate', type=int, default=250000, help='Bitrate for CAN bus. Default is 250000.')
-    parser.add_argument('--node-id', type=int, required=True, help='CAN Node ID of the ODrive.')
+    parser.add_argument('-b', '--bitrate', type=int, default=250000, required=False, help='Bitrate for CAN bus. Default is 250000.')
+    parser.add_argument('--node-id', type=int, required=False, help='CAN Node ID of the ODrive.')
     parser.add_argument('--endpoints-json', default='flat_endpoints.json', type=str, required=False, help='Path to flat_endpoints.json corresponding to the given ODrive and firmware version.')
     parser.add_argument('--config', type=str, default='config.json', required=False, help='JSON file with configuration settings.')
     parser.add_argument("--save-config", action='store_true', help="Save the configuration to NVM and reboot ODrive.")

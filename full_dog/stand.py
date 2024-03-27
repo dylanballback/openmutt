@@ -18,7 +18,7 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
                     back_left_knee, back_left_shoulder, back_left_hip,
                     back_right_knee, back_right_shoulder, back_right_hip):
         
-        sleep_time = 10
+        sleep_time = 6
         
         front_left_knee.clear_errors(identify=True)
         await asyncio.sleep(sleep_time)
@@ -47,32 +47,33 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
         await asyncio.sleep(sleep_time)
         back_right_hip.clear_errors(identify=True)
         await asyncio.sleep(sleep_time)
-        """
+        
+
         front_left_knee.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         front_left_shoulder.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         front_left_hip.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         front_right_knee.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         front_right_shoulder.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         front_right_hip.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_left_knee.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_left_shoulder.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_left_hip.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_right_knee.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_right_shoulder.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
+        await asyncio.sleep(sleep_time)
         back_right_hip.setAxisState("closed_loop_control")
-        await asyncio.sleep(0.2)
-        """
+        await asyncio.sleep(sleep_time)
+        
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=15)
@@ -122,28 +123,28 @@ async def main():
     #Back of Dog
 
     #Back Left 
-    back_left_knee = pyodrivecan.ODriveCAN(6)
+    back_left_knee = pyodrivecan.ODriveCAN(6, canBusID="can1")
     back_left_knee.initCanBus()
     time.sleep(sleep_time)
 
-    back_left_shoulder = pyodrivecan.ODriveCAN(7)
+    back_left_shoulder = pyodrivecan.ODriveCAN(7, canBusID="can1")
     back_left_shoulder.initCanBus()
     time.sleep(sleep_time)
 
-    back_left_hip = pyodrivecan.ODriveCAN(8)
+    back_left_hip = pyodrivecan.ODriveCAN(8, canBusID="can1")
     back_left_hip.initCanBus()
     time.sleep(sleep_time)
     
     #Back Right 
-    back_right_knee = pyodrivecan.ODriveCAN(11)
+    back_right_knee = pyodrivecan.ODriveCAN(11, canBusID="can1")
     back_right_knee.initCanBus()
     time.sleep(sleep_time)
     
-    back_right_shoulder = pyodrivecan.ODriveCAN(10)
+    back_right_shoulder = pyodrivecan.ODriveCAN(10, canBusID="can1")
     back_right_shoulder.initCanBus()
     time.sleep(sleep_time)
 
-    back_right_hip = pyodrivecan.ODriveCAN(9)
+    back_right_hip = pyodrivecan.ODriveCAN(9, canBusID="can1")
     back_right_hip.initCanBus()
     time.sleep(sleep_time)
 

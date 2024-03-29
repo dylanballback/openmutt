@@ -41,12 +41,12 @@ async def main():
     odrive1.setAxisState("idle")
 
     #Set up Node_ID 2 
-    odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = False)
+    odrive2 = pyodrivecan.ODriveCAN(2)
     odrive2.initCanBus()
     odrive1.setAxisState("idle")
 
     #Set up Node_ID 3 
-    odrive3 = pyodrivecan.ODriveCAN(3, closed_loop_control_flag = False)
+    odrive3 = pyodrivecan.ODriveCAN(3)
     odrive3.initCanBus()
     odrive1.setAxisState("idle")
 

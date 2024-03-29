@@ -36,16 +36,19 @@ async def controller(odrive1, odrive2, odrive3):
 # Run multiple busses.
 async def main():
     #Set up Node_ID 1
-    odrive1 = pyodrivecan.ODriveCAN(1, closed_loop_control_flag = False)
+    odrive1 = pyodrivecan.ODriveCAN(1)
     odrive1.initCanBus()
+    odrive1.setAxisState("idle")
 
     #Set up Node_ID 2 
     odrive2 = pyodrivecan.ODriveCAN(2, closed_loop_control_flag = False)
     odrive2.initCanBus()
+    odrive1.setAxisState("idle")
 
     #Set up Node_ID 3 
     odrive3 = pyodrivecan.ODriveCAN(3, closed_loop_control_flag = False)
     odrive3.initCanBus()
+    odrive1.setAxisState("idle")
 
     #add each odrive to the async loop so they will run.
     await asyncio.gather(

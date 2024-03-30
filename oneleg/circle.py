@@ -12,15 +12,15 @@ points = [
 
 async def controller(odrive1, odrive2, odrive3):
     # Set trajectory limits for smooth motion for odrive1
-    odrive1.set_traj_vel_limit(0.5)  # Example velocity limit
+    odrive1.set_traj_vel_limit(0.1)  # Example velocity limit
     await asyncio.sleep(0.1)
-    odrive1.set_traj_accel_limits(0.1, 0.1)  # Example accel/decel limits
+    odrive1.set_traj_accel_limits(0.05, 0.05)  # Example accel/decel limits
     await asyncio.sleep(0.1)
 
     # Set trajectory limits for smooth motion for odrive2
-    odrive2.set_traj_vel_limit(0.5)  # Example velocity limit
+    odrive2.set_traj_vel_limit(0.1)  # Example velocity limit
     await asyncio.sleep(0.1)
-    odrive2.set_traj_accel_limits(0.1, 0.1)  # Example accel/decel limit
+    odrive2.set_traj_accel_limits(0.05, 0.05)  # Example accel/decel limit
     await asyncio.sleep(0.1)
     stop_at = datetime.now() + timedelta(seconds=60)
     point_index = 0

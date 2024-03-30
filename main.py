@@ -9,7 +9,12 @@ async def controller(odrive1, odrive2, odrive3):
         #print("Set odrive to postion 0")
         #odrive2.set_position(0)
         #odrive3.set_position(0)
-        
+        odrive1.setAxisState("idle")
+        await asyncio.sleep(1)
+        odrive1.setAxisState("idle")
+        await asyncio.sleep(1)
+        odrive1.setAxisState("idle")
+        await asyncio.sleep(1)
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=30)

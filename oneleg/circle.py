@@ -25,7 +25,7 @@ async def controller(odrive1, odrive2, odrive3):
             
             # Wait until ODrive reaches the target position
             # This is a simple way to check - you might want to use a more sophisticated condition in practice
-            await asyncio.sleep(10)  # Adjust sleep time based on actual movement speed and distance
+            await asyncio.sleep(5)  # Adjust sleep time based on actual movement speed and distance
 
             # Switch target position
             if target_position == position_limit1:

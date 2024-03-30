@@ -8,33 +8,50 @@ async def controller(odrive1, odrive2, odrive3):
     #odrive2.set_position(20)  # Similarly, for other ODrives
     #odrive3.set_position(30)
 
-    # Initialize positions
-    target_position = 6.5
-    position_limit1 = 6.5
-    position_limit2 = -1.5
+    # Initialize positions for odrive1
+    target_position_1 = 6.5
+    position_limit1_1 = 6.5
+    position_limit2_1 = -1.5
 
-    # Set trajectory limits for smooth motion
-    odrive1.set_traj_vel_limit(3.0)  # Set a low velocity limit for slow movement
-    odrive1.set_traj_accel_limits(0.1, 0.1)  # Set low acceleration/deceleration for smoothness
+
+    # Initialize positions for odrive2
+    target_position_2 = 0.8
+    position_limit1_2 = 0.8
+    position_limit2_2 = -1.2
+
+    # Set trajectory limits for smooth motion for odrive1
+    odrive1.set_traj_vel_limit(1.0)  # Example velocity limit
+    odrive1.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limits
+
+    # Set trajectory limits for smooth motion for odrive2
+    odrive2.set_traj_vel_limit(1.0)  # Example velocity limit
+    odrive2.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limit
 
     stop_at = datetime.now() + timedelta(seconds=60)
     while datetime.now() < stop_at:
-        while odrive1.running:
+        while datetime.now() < stop_at and odrive1.running and odrive2.running:
             # Move ODrive 1 to the target position
-            odrive1.set_position(target_position)
-            
-            # Wait until ODrive reaches the target position
-            # This is a simple way to check - you might want to use a more sophisticated condition in practice
+            odrive1.set_position(target_position_1)
+            # Move ODrive 2 to the target position
+            odrive2.set_position(target_position_2)
+
+            # Wait before checking position again
             await asyncio.sleep(1.5)  # Adjust sleep time based on actual movement speed and distance
 
-            # Switch target position
-            if target_position == position_limit1:
-                target_position = position_limit2
+            # Switch target position for odrive1
+            if target_position_1 == position_limit1_1:
+                target_position_1 = position_limit2_1
             else:
-                target_position = position_limit1
+                target_position_1 = position_limit1_1
 
-            print(f"ODrive1 Position: {odrive1.position}")
+            # Switch target position for odrive2
+            if target_position_2 == position_limit1_2:
+                target_position_2 = position_limit2_2
+            else:
+                target_position_2 = position_limit1_2
+
             print(f"Odrive1 Position: {odrive1.position}, Odrive2 Position: {odrive2.position}, Odrive3 Position: {odrive3.position}")
+            
 
     odrive1.running = False
     odrive2.running = False

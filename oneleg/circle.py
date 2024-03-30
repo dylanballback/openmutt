@@ -95,9 +95,12 @@ async def main():
     except KeyboardInterrupt:
         estop_all(odrive1, odrive2, odrive3)
     finally:
-        shutdown_all()
+        shutdown_all(odrive1, odrive2, odrive3)
 
     
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("Program terminated with keyboard interrupt.")

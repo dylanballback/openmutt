@@ -23,13 +23,13 @@ async def controller(odrive1, odrive2, odrive3):
     # Set trajectory limits for smooth motion for odrive1
     odrive1.set_traj_vel_limit(1.0)  # Example velocity limit
     await asyncio.sleep(0.1)
-    odrive1.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limits
+    odrive1.set_traj_accel_limits(0.1, 0.1)  # Example accel/decel limits
     await asyncio.sleep(0.1)
 
     # Set trajectory limits for smooth motion for odrive2
     odrive2.set_traj_vel_limit(1.0)  # Example velocity limit
     await asyncio.sleep(0.1)
-    odrive2.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limit
+    odrive2.set_traj_accel_limits(0.1, 0.1)  # Example accel/decel limit
     await asyncio.sleep(0.1)
 
 
@@ -42,7 +42,7 @@ async def controller(odrive1, odrive2, odrive3):
             odrive2.set_position(target_position_2)
 
             # Wait before checking position again
-            await asyncio.sleep(5)  # Adjust sleep time based on actual movement speed and distance
+            await asyncio.sleep(2)  # Adjust sleep time based on actual movement speed and distance
 
             # Switch target position for odrive1
             if target_position_1 == position_limit1_1:

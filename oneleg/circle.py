@@ -16,8 +16,8 @@ async def controller(odrive1, odrive2, odrive3):
 
 
     # Initialize positions for odrive2
-    target_position_2 = 0.8
-    position_limit1_2 = 0.8
+    target_position_2 = 4.1
+    position_limit1_2 = 4.1
     position_limit2_2 = -1.2
 
     # Set trajectory limits for smooth motion for odrive1

@@ -1,6 +1,7 @@
 import pyodrivecan
 import asyncio
 from datetime import datetime, timedelta
+import time
 
 async def controller(odrive1, odrive2, odrive3):
     # Example trajectory control
@@ -21,11 +22,16 @@ async def controller(odrive1, odrive2, odrive3):
 
     # Set trajectory limits for smooth motion for odrive1
     odrive1.set_traj_vel_limit(1.0)  # Example velocity limit
+    await asyncio.sleep(0.1)
     odrive1.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limits
+    await asyncio.sleep(0.1)
 
     # Set trajectory limits for smooth motion for odrive2
     odrive2.set_traj_vel_limit(1.0)  # Example velocity limit
+    await asyncio.sleep(0.1)
     odrive2.set_traj_accel_limits(0.5, 0.5)  # Example accel/decel limit
+    await asyncio.sleep(0.1)
+
 
     stop_at = datetime.now() + timedelta(seconds=60)
     while datetime.now() < stop_at:
@@ -36,7 +42,7 @@ async def controller(odrive1, odrive2, odrive3):
             odrive2.set_position(target_position_2)
 
             # Wait before checking position again
-            await asyncio.sleep(1.5)  # Adjust sleep time based on actual movement speed and distance
+            await asyncio.sleep(5)  # Adjust sleep time based on actual movement speed and distance
 
             # Switch target position for odrive1
             if target_position_1 == position_limit1_1:
@@ -98,8 +104,11 @@ async def main():
     # Configure each ODrive
     for odrive in (odrive1, odrive2, odrive3):
         odrive.set_limits(velocity_limit=velocity_limit, current_limit=current_limit)
+        time.sleep(0.1)
         odrive.set_traj_vel_limit(traj_vel_limit)
+        time.sleep(0.1)
         odrive.set_traj_accel_limits(traj_accel_limit, traj_accel_limit)
+        time.sleep(0.1)
 
 
     try:

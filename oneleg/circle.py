@@ -15,7 +15,7 @@ async def controller(odrive1, odrive2, odrive3):
 
     # Set trajectory limits for smooth motion
     odrive1.set_traj_vel_limit(3.0)  # Set a low velocity limit for slow movement
-    odrive1.set_traj_accel_limits(0.5, 0.5)  # Set low acceleration/deceleration for smoothness
+    odrive1.set_traj_accel_limits(0.1, 0.1)  # Set low acceleration/deceleration for smoothness
 
     stop_at = datetime.now() + timedelta(seconds=60)
     while datetime.now() < stop_at:

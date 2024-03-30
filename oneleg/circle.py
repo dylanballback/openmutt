@@ -14,7 +14,7 @@ async def controller(odrive1, odrive2, odrive3):
     position_limit2 = -1.5
 
     # Set trajectory limits for smooth motion
-    odrive1.set_traj_vel_limit(2.0)  # Set a low velocity limit for slow movement
+    odrive1.set_traj_vel_limit(3.0)  # Set a low velocity limit for slow movement
     odrive1.set_traj_accel_limits(0.5, 0.5)  # Set low acceleration/deceleration for smoothness
 
     stop_at = datetime.now() + timedelta(seconds=60)
@@ -25,7 +25,7 @@ async def controller(odrive1, odrive2, odrive3):
             
             # Wait until ODrive reaches the target position
             # This is a simple way to check - you might want to use a more sophisticated condition in practice
-            await asyncio.sleep(2.5)  # Adjust sleep time based on actual movement speed and distance
+            await asyncio.sleep(1.5)  # Adjust sleep time based on actual movement speed and distance
 
             # Switch target position
             if target_position == position_limit1:

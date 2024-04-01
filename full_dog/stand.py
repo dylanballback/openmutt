@@ -230,6 +230,12 @@ async def controller():
         """
 
         set_idle()
+
+        clear_buffer()
+        await asyncio.sleep(0.5)
+
+        set_idle()
+
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:

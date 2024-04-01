@@ -75,23 +75,24 @@ def calibrate():
 
 
 def print_positions():
-    print(f"Front Left Knee Position: {front_left_knee.position}")
-    print(f"Front Left Shoulder Position: {front_left_shoulder.position}")
-    print(f"Front Left Hip Position: {front_left_hip.position}")
-
-    print(f"Front Right Knee Position: {front_right_knee.position}")
-    print(f"Front Right Shoulder Position: {front_right_shoulder.position}")
-    print(f"Front Right Hip Position: {front_right_hip.position}")
-
-    print(f"Back Left Knee Position: {back_left_knee.position}")
-    print(f"Back Left Shoulder Position: {back_left_shoulder.position}")
-    print(f"Back Left Hip Position: {back_left_hip.position}")
-
-    print(f"Back Right Knee Position: {back_right_knee.position}")
-    print(f"Back Right Shoulder Position: {back_right_shoulder.position}")
-    print(f"Back Right Hip Position: {back_right_hip.position}")
+    print(f"Front Left Knee Position: {front_left_knee.position:.3f}")
+    print(f"Front Left Shoulder Position: {front_left_shoulder.position:.3f}")
+    print(f"Front Left Hip Position: {front_left_hip.position:.3f}")
+    print("      ")
+    print(f"Front Right Knee Position: {front_right_knee.position:.3f}")
+    print(f"Front Right Shoulder Position: {front_right_shoulder.position:.3f}")
+    print(f"Front Right Hip Position: {front_right_hip.position:.3f}")
+    print("      ")
+    print(f"Back Left Knee Position: {back_left_knee.position:.3f}")
+    print(f"Back Left Shoulder Position: {back_left_shoulder.position:.3f}")
+    print(f"Back Left Hip Position: {back_left_hip.position:.3f}")
+    print("      ")
+    print(f"Back Right Knee Position: {back_right_knee.position:.3f}")
+    print(f"Back Right Shoulder Position: {back_right_shoulder.position:.3f}")
+    print(f"Back Right Hip Position: {back_right_hip.position:.3f}")
     for i in range(5):
         print("      ")
+
 
 
 def clear_errors():

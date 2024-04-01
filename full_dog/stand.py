@@ -70,6 +70,12 @@ odrives = [
     back_right_hip
 ]
 
+current_limit = 35.0
+velocity_limit = 5.0
+
+def set_limits():
+    for odrive in odrives:
+        odrive.set_limits(velocity_limit=velocity_limit, current_limit=current_limit)
 
 def calibrate():
     for odrive in odrives:
@@ -160,10 +166,12 @@ async def controller():
         await asyncio.sleep(30)
 
         
-        front_right_hip.set_position(2.8)
-        front_left_hip.set_position(2.8)
-        back_right_hip.set_position(2.8)
-        back_left_hip.set_position(2.8)
+        front_right_hip.set_position(2)
+        front_left_hip.set_position(2)
+        back_right_hip.set_position(2)
+        back_left_hip.set_position(2)
+        
+        await asyncio.sleep(30)
 
         print("Moving")
 
@@ -207,7 +215,7 @@ async def controller():
 # Run multiple busses.
 async def main():
 
-    
+    set_limits()
     
     try:
         await asyncio.gather(

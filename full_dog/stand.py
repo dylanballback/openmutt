@@ -90,6 +90,8 @@ def print_positions():
     print(f"Back Right Knee Position: {back_right_knee.position}")
     print(f"Back Right Shoulder Position: {back_right_shoulder.position}")
     print(f"Back Right Hip Position: {back_right_hip.position}")
+    for i in range(5):
+        print("      ")
 
 
 def clear_errors():

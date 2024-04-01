@@ -140,9 +140,10 @@ async def controller():
 
         print("Standing")
         #Run for set time delay example runs for 15 seconds.
-        stop_at = datetime.now() + timedelta(seconds=15)
+        stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:
-            await asyncio.sleep(0) #Need this for async to work.
+            print_positions()
+            await asyncio.sleep(1) #Need this for async to work.
             pass
         
             #odrive1.set_position(0)
@@ -167,7 +168,7 @@ async def main():
     calibrate()
 
     time.sleep(1)
-    
+
     print_positions()   
     
     try:

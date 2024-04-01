@@ -139,6 +139,8 @@ async def controller():
         
         set_closed_loop()
         
+        await asyncio.sleep(2)
+        calibrate()
 
         print("Standing")
         #Run for set time delay example runs for 15 seconds.
@@ -164,14 +166,7 @@ async def controller():
 # Run multiple busses.
 async def main():
 
-    print_positions()
-
-
-    calibrate()
-
-    time.sleep(1)
-
-    print_positions()   
+    
     
     try:
         await asyncio.gather(

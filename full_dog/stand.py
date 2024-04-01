@@ -138,7 +138,7 @@ async def controller():
         clear_errors()
         
         set_closed_loop()
-        
+        print_positions()
         await asyncio.sleep(2)
         calibrate()
 

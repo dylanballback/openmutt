@@ -114,19 +114,19 @@ def clear_buffer():
 def clear_errors():
     for odrive in odrives:
         odrive.clear_errors(identify=False)
+        time.sleep(0.1)
 
 
 def set_closed_loop():
     for odrive in odrives:
         odrive.setAxisState("closed_loop_control")
-    
+        time.sleep(0.1)
 
 
 def set_idle():
     for odrive in odrives:
         odrive.setAxisState("idle")
         print("Idle")
-
 
 def set_all_filtered_pos_control():
     for odrive in odrives:

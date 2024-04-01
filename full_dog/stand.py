@@ -71,7 +71,7 @@ odrives = [
 ]
 
 current_limit = 35.0
-velocity_limit = 5.0
+velocity_limit = 10.0
 
 def set_limits():
     for odrive in odrives:
@@ -125,6 +125,7 @@ def set_closed_loop():
 def set_idle():
     for odrive in odrives:
         odrive.setAxisState("idle")
+        print("Idle")
 
 
 def set_all_filtered_pos_control():
@@ -164,6 +165,8 @@ async def controller():
         print_positions()
         await asyncio.sleep(2)
         calibrate()
+
+        """
         await asyncio.sleep(2)
         set_all_filtered_pos_control()
 
@@ -180,11 +183,11 @@ async def controller():
         await asyncio.sleep(2)
         
 
-        
-        front_right_hip.set_position(0)
-        front_left_hip.set_position(0)
-        back_right_hip.set_position(0)
-        back_left_hip.set_position(0)
+        hip_position = 2
+        front_right_hip.set_position(hip_position)
+        front_left_hip.set_position(hip_position)
+        back_right_hip.set_position(hip_position)
+        back_left_hip.set_position(hip_position)
         
         await asyncio.sleep(5)
         clear_buffer()
@@ -199,6 +202,10 @@ async def controller():
         await asyncio.sleep(2)
 
         print("Moving")
+        """
+
+
+        
 
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
@@ -213,9 +220,9 @@ async def controller():
             # Add tasks for other joints as necessary
         ]
 
-        await asyncio.gather(*tasks)
+        #await asyncio.gather(*tasks)
 
-        #set_idle()
+        set_idle()
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:

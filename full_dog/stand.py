@@ -126,9 +126,9 @@ def set_idle():
         print("Idle")
 
 def set_all_filtered_pos_control():
+    clear_buffer()
+    time.sleep(0.1)
     for odrive in odrives:
-        clear_buffer()
-        time.sleep(0.1)
         # Set each ODrive to filtered position control
         odrive.set_controller_mode(control_mode_name="position_control", input_mode_name="pos_filter")
         time.sleep(0.1)  # Delay to prevent command overlap on CAN bus

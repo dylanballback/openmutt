@@ -55,6 +55,43 @@ back_right_hip = pyodrivecan.ODriveCAN(9, canBusID="can1")
 back_right_hip.initCanBus()
 
 
+def calibrate():
+    front_left_knee.set_absolute_position()
+    front_left_shoulder.set_absolute_position()
+    front_left_hip.set_absolute_position()
+
+    front_right_knee.set_absolute_position()
+    front_right_shoulder.set_absolute_position()
+    front_right_hip.set_absolute_position()
+
+    back_left_knee.set_absolute_position()
+    back_left_shoulder.set_absolute_position()
+    back_left_hip.set_absolute_position()
+
+    back_right_knee.set_absolute_position()
+    back_right_shoulder.set_absolute_position()
+    back_right_hip.set_absolute_position()
+    print("Calibration Complete: Absolute Position Set.")
+
+
+def print_positions():
+    print(f"Front Left Knee Position: {front_left_knee.position}")
+    print(f"Front Left Shoulder Position: {front_left_shoulder.position}")
+    print(f"Front Left Hip Position: {front_left_hip.position}")
+
+    print(f"Front Right Knee Position: {front_right_knee.position}")
+    print(f"Front Right Shoulder Position: {front_right_shoulder.position}")
+    print(f"Front Right Hip Position: {front_right_hip.position}")
+
+    print(f"Back Left Knee Position: {back_left_knee.position}")
+    print(f"Back Left Shoulder Position: {back_left_shoulder.position}")
+    print(f"Back Left Hip Position: {back_left_hip.position}")
+
+    print(f"Back Right Knee Position: {back_right_knee.position}")
+    print(f"Back Right Shoulder Position: {back_right_shoulder.position}")
+    print(f"Back Right Hip Position: {back_right_hip.position}")
+
+
 def clear_errors():
     front_left_knee.clear_errors(identify=False)
     front_left_shoulder.clear_errors(identify=False)
@@ -71,6 +108,7 @@ def clear_errors():
     back_right_knee.clear_errors(identify=False)
     back_right_shoulder.clear_errors(identify=False)
     back_right_hip.clear_errors(identify=False)
+
 
 def set_closed_loop():
     front_left_knee.setAxisState("closed_loop_control")
@@ -93,10 +131,7 @@ def set_closed_loop():
 
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
-async def controller(front_left_knee, front_left_shoulder, front_left_hip,
-                    front_right_knee, front_right_shoulder, front_right_hip,
-                    back_left_knee, back_left_shoulder, back_left_hip,
-                    back_right_knee, back_right_shoulder, back_right_hip):
+async def controller():
         
         clear_errors()
         
@@ -126,8 +161,14 @@ async def controller(front_left_knee, front_left_shoulder, front_left_hip,
 # Run multiple busses.
 async def main():
 
-    #Front of Dog
-         
+    print_positions()
+
+
+    calibrate()
+
+    time.sleep(1)
+    
+    print_positions()   
     
     try:
         await asyncio.gather(
@@ -143,10 +184,7 @@ async def main():
             back_right_knee.loop(),
             back_right_shoulder.loop(),
             back_right_hip.loop(),
-            controller(front_left_knee, front_left_shoulder, front_left_hip,
-                        front_right_knee, front_right_shoulder, front_right_hip,
-                        back_left_knee, back_left_shoulder, back_left_hip,
-                        back_right_knee, back_right_shoulder, back_right_hip) 
+            controller() 
         )
     except KeyboardInterrupt:
         front_left_knee.estop()

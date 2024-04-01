@@ -158,6 +158,13 @@ async def controller():
         set_all_filtered_pos_control()
 
         await asyncio.sleep(30)
+
+        
+        front_right_hip.set_position(2.8)
+        front_left_hip.set_position(2.8)
+        back_right_hip.set_position(2.8)
+        back_left_hip.set_position(2.8)
+
         print("Moving")
 
         # Create tasks for each joint to move smoothly between its ranges

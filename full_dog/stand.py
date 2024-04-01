@@ -75,21 +75,6 @@ def calibrate():
 
 
 def print_positions():
-    front_left_knee.flush_can_buffer()
-    front_left_shoulder.flush_can_buffer()
-    front_left_hip.flush_can_buffer()
-
-    front_right_knee.flush_can_buffer()
-    front_right_shoulder.flush_can_buffer()
-    front_right_hip.flush_can_buffer()
-
-    back_left_knee.flush_can_buffer()
-    back_left_shoulder.flush_can_buffer()
-    back_left_hip.flush_can_buffer()
-
-    back_right_knee.flush_can_buffer()
-    back_right_shoulder.flush_can_buffer()
-    back_right_hip.flush_can_buffer()
     print(f"Front Left Knee Position: {front_left_knee.position}")
     print(f"Front Left Shoulder Position: {front_left_shoulder.position}")
     print(f"Front Left Hip Position: {front_left_hip.position}")

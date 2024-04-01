@@ -246,7 +246,7 @@ async def controller():
 
 # Run multiple busses.
 async def main():
-
+    clear_errors()
     set_limits()
     
     try:

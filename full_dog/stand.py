@@ -107,7 +107,9 @@ def print_positions():
     for i in range(5):
         print("      ")
 
-
+def clear_buffer():
+    for odrive in odrives:
+        odrive.flush_can_buffer()
 
 def clear_errors():
     for odrive in odrives:
@@ -163,7 +165,18 @@ async def controller():
         await asyncio.sleep(2)
         set_all_filtered_pos_control()
 
-        await asyncio.sleep(30)
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(2)
+        
 
         
         front_right_hip.set_position(2)

@@ -157,6 +157,7 @@ async def controller():
         await asyncio.sleep(2)
         set_all_filtered_pos_control()
 
+        await asyncio.sleep(30)
         print("Moving")
 
         # Create tasks for each joint to move smoothly between its ranges

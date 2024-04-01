@@ -129,6 +129,8 @@ def set_idle():
 
 def set_all_filtered_pos_control():
     for odrive in odrives:
+        clear_buffer()
+        time.sleep(0.1)
         # Set each ODrive to filtered position control
         odrive.set_controller_mode(control_mode_name="position_control", input_mode_name="pos_filter")
         time.sleep(0.1)  # Delay to prevent command overlap on CAN bus
@@ -179,12 +181,22 @@ async def controller():
         
 
         
-        front_right_hip.set_position(2)
-        front_left_hip.set_position(2)
-        back_right_hip.set_position(2)
-        back_left_hip.set_position(2)
+        front_right_hip.set_position(0)
+        front_left_hip.set_position(0)
+        back_right_hip.set_position(0)
+        back_left_hip.set_position(0)
         
-        await asyncio.sleep(30)
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(5)
+        clear_buffer()
+        await asyncio.sleep(2)
 
         print("Moving")
 

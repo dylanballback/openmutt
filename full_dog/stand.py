@@ -58,7 +58,7 @@ back_right_hip.initCanBus()
 def calibrate():
     front_left_knee.set_absolute_position(0)
     front_left_shoulder.set_absolute_position(0)
-    front_left_hip.set_absolute_position()
+    front_left_hip.set_absolute_position(0)
 
     front_right_knee.set_absolute_position(0)
     front_right_shoulder.set_absolute_position(0)

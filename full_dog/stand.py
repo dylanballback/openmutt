@@ -129,7 +129,24 @@ def set_closed_loop():
     back_right_shoulder.setAxisState("closed_loop_control")
     back_right_hip.setAxisState("closed_loop_control")
 
-        
+
+def set_idle():
+    state = "idle"
+    front_left_knee.setAxisState(state)
+    front_left_shoulder.setAxisState(state)
+    front_left_hip.setAxisState(state)
+
+    front_right_knee.setAxisState(state)
+    front_right_shoulder.setAxisState(state)
+    front_right_hip.setAxisState(state)
+
+    back_left_knee.setAxisState(state)
+    back_left_shoulder.setAxisState(state)
+    back_left_hip.setAxisState(state)
+
+    back_right_knee.setAxisState(state)
+    back_right_shoulder.setAxisState(state)
+    back_right_hip.setAxisState(state)
 
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
@@ -143,6 +160,9 @@ async def controller():
         calibrate()
 
         print("Standing")
+
+        
+        set_idle()
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:

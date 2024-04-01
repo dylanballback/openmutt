@@ -54,23 +54,27 @@ back_right_shoulder.initCanBus()
 back_right_hip = pyodrivecan.ODriveCAN(9, canBusID="can1")
 back_right_hip.initCanBus()
 
+# List of all your ODriveCAN instances
+odrives = [
+    front_left_knee,
+    front_left_shoulder,
+    front_left_hip,
+    front_right_knee,
+    front_right_shoulder,
+    front_right_hip,
+    back_left_knee,
+    back_left_shoulder,
+    back_left_hip,
+    back_right_knee,
+    back_right_shoulder,
+    back_right_hip
+]
+
 
 def calibrate():
-    front_left_knee.set_absolute_position(0)
-    front_left_shoulder.set_absolute_position(0)
-    front_left_hip.set_absolute_position(0)
+    for odrive in odrives:
+        odrive.set_absolute_position(0)
 
-    front_right_knee.set_absolute_position(0)
-    front_right_shoulder.set_absolute_position(0)
-    front_right_hip.set_absolute_position(0)
-
-    back_left_knee.set_absolute_position(0)
-    back_left_shoulder.set_absolute_position(0)
-    back_left_hip.set_absolute_position(0)
-
-    back_right_knee.set_absolute_position(0)
-    back_right_shoulder.set_absolute_position(0)
-    back_right_hip.set_absolute_position(0)
     print("Calibration Complete: Absolute Position Set.")
 
 
@@ -100,58 +104,45 @@ def print_positions():
 
 
 def clear_errors():
-    front_left_knee.clear_errors(identify=False)
-    front_left_shoulder.clear_errors(identify=False)
-    front_left_hip.clear_errors(identify=False)
-
-    front_right_knee.clear_errors(identify=False)
-    front_right_shoulder.clear_errors(identify=False)
-    front_right_hip.clear_errors(identify=False)
-
-    back_left_knee.clear_errors(identify=False)
-    back_left_shoulder.clear_errors(identify=False)
-    back_left_hip.clear_errors(identify=False)
-
-    back_right_knee.clear_errors(identify=False)
-    back_right_shoulder.clear_errors(identify=False)
-    back_right_hip.clear_errors(identify=False)
+    for odrive in odrives:
+        odrive.clear_errors(identify=False)
 
 
 def set_closed_loop():
-    front_left_knee.setAxisState("closed_loop_control")
-    front_left_shoulder.setAxisState("closed_loop_control")
-    front_left_hip.setAxisState("closed_loop_control")
-
-    front_right_knee.setAxisState("closed_loop_control")
-    front_right_shoulder.setAxisState("closed_loop_control")
-    front_right_hip.setAxisState("closed_loop_control")
-
-    back_left_knee.setAxisState("closed_loop_control")
-    back_left_shoulder.setAxisState("closed_loop_control")
-    back_left_hip.setAxisState("closed_loop_control")
-
-    back_right_knee.setAxisState("closed_loop_control")
-    back_right_shoulder.setAxisState("closed_loop_control")
-    back_right_hip.setAxisState("closed_loop_control")
+    for odrive in odrives:
+        odrive.setAxisState("closed_loop_control")
+    
 
 
 def set_idle():
-    state = "idle"
-    front_left_knee.setAxisState(state)
-    front_left_shoulder.setAxisState(state)
-    front_left_hip.setAxisState(state)
+    for odrive in odrives:
+        odrive.setAxisState("idle")
 
-    front_right_knee.setAxisState(state)
-    front_right_shoulder.setAxisState(state)
-    front_right_hip.setAxisState(state)
 
-    back_left_knee.setAxisState(state)
-    back_left_shoulder.setAxisState(state)
-    back_left_hip.setAxisState(state)
+def set_all_filtered_pos_control():
+    for odrive in odrives:
+        # Set each ODrive to filtered position control
+        odrive.set_controller_mode(control_mode_name="position_control", input_mode_name="pos_filter")
+        time.sleep(0.1)  # Delay to prevent command overlap on CAN bus
+        print(f"Set ODrive {odrive.nodeID} to filtered position control.")
 
-    back_right_knee.setAxisState(state)
-    back_right_shoulder.setAxisState(state)
-    back_right_hip.setAxisState(state)
+
+def estop_all():
+    for odrive in odrives:
+        odrive.estop()
+
+def bus_shutdown_all():
+    for odrive in odrives:
+        odrive.bus_shutdown()
+
+
+# Function to move a joint smoothly between a min and max position
+async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
+    while True:
+        odrive.set_position(min_pos)
+        await asyncio.sleep(sleep_time)
+        odrive.set_position(max_pos)
+        await asyncio.sleep(sleep_time)
 
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
@@ -163,17 +154,34 @@ async def controller():
         print_positions()
         await asyncio.sleep(2)
         calibrate()
+        await asyncio.sleep(2)
+        set_all_filtered_pos_control()
 
-        print("Standing")
+        print("Moving")
 
-        
-        set_idle()
+        # Create tasks for each joint to move smoothly between its ranges
+        tasks = [
+            move_joint_smoothly(front_left_knee, 0.1, 7.9),
+            move_joint_smoothly(front_left_shoulder, 0.1, 6.6),
+            move_joint_smoothly(front_right_knee, 0.1, -7.9),
+            move_joint_smoothly(front_right_shoulder, 0.1, -6.6),
+            move_joint_smoothly(back_left_knee, 0.1, -7.9),
+            move_joint_smoothly(back_left_shoulder, 0.1, -6.6),
+            move_joint_smoothly(back_right_knee, 0.1, 7.9),
+            move_joint_smoothly(back_right_shoulder, 0.1, 6.6),
+            # Add tasks for other joints as necessary
+        ]
+
+        await asyncio.gather(*tasks)
+
+        #set_idle()
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:
+            
             print_positions()
             await asyncio.sleep(1) #Need this for async to work.
-            pass
+            #pass
         
             #odrive1.set_position(0)
             #print("Set odrive to postion 0")
@@ -210,43 +218,10 @@ async def main():
             controller() 
         )
     except KeyboardInterrupt:
-        front_left_knee.estop()
-        front_left_shoulder.estop()
-        front_left_hip.estop()
-        front_right_knee.estop()
-        front_right_shoulder.estop()
-        front_right_hip.estop()
-        back_left_knee.estop()
-        back_left_shoulder.estop()
-        back_left_hip.estop()
-        back_right_knee.estop()
-        back_right_shoulder.estop()
-        back_right_hip.estop()
+        estop_all()
     finally:
-        front_left_knee.estop()
-        front_left_shoulder.estop()
-        front_left_hip.estop()
-        front_right_knee.estop()
-        front_right_shoulder.estop()
-        front_right_hip.estop()
-        back_left_knee.estop()
-        back_left_shoulder.estop()
-        back_left_hip.estop()
-        back_right_knee.estop()
-        back_right_shoulder.estop()
-        back_right_hip.estop()
-        front_left_knee.bus_shutdown()
-        front_left_shoulder.bus_shutdown()
-        front_left_hip.bus_shutdown()
-        front_right_knee.bus_shutdown()
-        front_right_shoulder.bus_shutdown()
-        front_right_hip.bus_shutdown()
-        back_left_knee.bus_shutdown()
-        back_left_shoulder.bus_shutdown()
-        back_left_hip.bus_shutdown()
-        back_right_knee.bus_shutdown()
-        back_right_shoulder.bus_shutdown()
-        back_right_hip.bus_shutdown()
+        estop_all()
+        bus_shutdown_all()
 
 
 if __name__ == "__main__":

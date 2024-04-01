@@ -208,7 +208,7 @@ async def controller():
         await asyncio.sleep(2)
 
         print("Moving")
-        """
+        
 
 
         
@@ -227,6 +227,7 @@ async def controller():
         ]
 
         #await asyncio.gather(*tasks)
+        """
 
         set_idle()
         #Run for set time delay example runs for 15 seconds.

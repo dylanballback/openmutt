@@ -159,8 +159,10 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
         clear_buffer()
+        await asyncio.sleep(2)
         clear_errors()
         clear_buffer()
+        await asyncio.sleep(2)
         set_closed_loop()
         print_positions()
         await asyncio.sleep(2)
@@ -246,7 +248,12 @@ async def controller():
 
 # Run multiple busses.
 async def main():
+    clear_buffer()
+    time.sleep(2)
     clear_errors()
+
+    clear_buffer()
+    time.sleep(2)
     set_limits()
     
     try:

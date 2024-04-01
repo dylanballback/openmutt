@@ -114,14 +114,11 @@ def clear_buffer():
 def clear_errors():
     for odrive in odrives:
         odrive.clear_errors(identify=False)
-        time.sleep(0.1)
 
 
 def set_closed_loop():
     for odrive in odrives:
         odrive.setAxisState("closed_loop_control")
-        time.sleep(0.1)
-
 
 def set_idle():
     for odrive in odrives:
@@ -159,13 +156,13 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
         clear_buffer()
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         clear_errors()
         clear_buffer()
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         set_closed_loop()
         print_positions()
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
         calibrate()
 
         """
@@ -249,11 +246,11 @@ async def controller():
 # Run multiple busses.
 async def main():
     clear_buffer()
-    time.sleep(2)
+    time.sleep(1)
     clear_errors()
 
     clear_buffer()
-    time.sleep(2)
+    time.sleep(1)
     set_limits()
     
     try:

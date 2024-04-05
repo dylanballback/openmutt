@@ -195,18 +195,18 @@ async def controller():
 
         #await asyncio.sleep(5)
         
-        """
         
-        hip_position = 2
+        
+        hip_position = 1.7
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(hip_position)
         back_right_hip.set_position(hip_position)
         back_left_hip.set_position(hip_position)
-        """
+        await asyncio.sleep(5)
 
         print("Moving")
         
-        """
+        
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
             move_joint_smoothly(front_left_knee, 0.1, 7.9),
@@ -219,11 +219,12 @@ async def controller():
             move_joint_smoothly(back_right_shoulder, 0.1, 6.6),
             # Add tasks for other joints as necessary
         ]
+        
+        
+        await asyncio.gather(*tasks)
+        
+        
         """
-        
-        #await asyncio.gather(*tasks)
-        
-        
         await set_idle()
 
         await clear_buffer()
@@ -231,7 +232,7 @@ async def controller():
 
         await set_idle()
 
-        """
+        
         await set_closed_loop()
         await asyncio.sleep(2)
 

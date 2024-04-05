@@ -88,7 +88,7 @@ async def closedlooop_lower():
         await asyncio.sleep(0.2)
 
 current_limit = 35.0
-velocity_limit = 10.0
+velocity_limit = 20.0
 
 def set_limits():
     for odrive in odrives:
@@ -171,7 +171,7 @@ async def print_positions_continuously(duration, interval=0.2):
 
 
 # Function to move a joint smoothly between a min and max position
-async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
+async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
     while True:
         odrive.set_position(min_pos)
         await asyncio.sleep(sleep_time)

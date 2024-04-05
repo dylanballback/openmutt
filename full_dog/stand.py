@@ -191,9 +191,9 @@ async def controller():
         #await asyncio.sleep(2)
         
         
-        #await set_all_filtered_pos_control()
+        await set_all_filtered_pos_control()
 
-        #await asyncio.sleep(5)
+        await asyncio.sleep(5)
         
         
         

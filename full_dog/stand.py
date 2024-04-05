@@ -223,7 +223,7 @@ async def controller():
 
         print("Moving")
         
-        """
+        
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
             move_joint_smoothly(front_left_knee, 0.1, 7.9),
@@ -241,7 +241,7 @@ async def controller():
         await asyncio.gather(*tasks)
         
         
-        
+        """
         await set_idle()
 
         await clear_buffer()
@@ -262,7 +262,7 @@ async def controller():
         while datetime.now() < stop_at:
             
             print_positions()
-            await asyncio.sleep(1) #Need this for async to work.
+            await asyncio.sleep(0.5) #Need this for async to work.
             #pass
         
             #odrive1.set_position(0)

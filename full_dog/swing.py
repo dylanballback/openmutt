@@ -368,9 +368,9 @@ async def controller():
         #await asyncio.sleep(10)
         
         
-        #await set_all_filtered_pos_control()
+        await set_all_filtered_pos_control()
         #await closedloop_lower()
-        #await asyncio.sleep(2)
+        await asyncio.sleep(2)
         
         
         hip_position = 2.4

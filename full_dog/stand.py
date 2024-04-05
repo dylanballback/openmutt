@@ -109,7 +109,7 @@ async def clear_buffer():
 async def clear_errors():
     for odrive in odrives:
         odrive.clear_errors(identify=False)
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.2)
 
 
 async def set_closed_loop():
@@ -125,12 +125,12 @@ async def set_idle():
     print("Idle")
 
 async def set_all_filtered_pos_control():
-    await clear_buffer()
-    await asyncio.sleep(0.5)
+    #await clear_buffer()
+    #await asyncio.sleep(0.5)
     for odrive in odrives:
         # Set each ODrive to filtered position control
         odrive.set_controller_mode(control_mode_name="position_control", input_mode_name="pos_filter")
-        await asyncio.sleep(0.1)  # Delay to prevent command overlap on CAN bus
+        await asyncio.sleep(0.2)  # Delay to prevent command overlap on CAN bus
         print(f"Set ODrive {odrive.nodeID} to filtered position control.")
 
 
@@ -146,16 +146,16 @@ def bus_shutdown_all():
 async def save_config():
     for odrive in odrives:
         odrive.reboot_save(action="save")
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.2)
 
 
 async def calibrate():
     for odrive in odrives:
         odrive.set_absolute_position(0)
-        await asyncio.sleep(0.1)
+        await asyncio.sleep(0.2)
 
-    await set_idle()
-    await save_config()
+    #await set_idle()
+    #await save_config()
 
     print("Calibration Complete: Absolute Position Set.")
 

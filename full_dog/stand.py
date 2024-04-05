@@ -181,7 +181,7 @@ async def controller():
         await asyncio.sleep(0.5)
         #clear_buffer()
         #await asyncio.sleep(0.5)
-        set_closed_loop()
+        await set_closed_loop()
         await asyncio.sleep(0.5)
         print_positions()
         await asyncio.sleep(0.5)

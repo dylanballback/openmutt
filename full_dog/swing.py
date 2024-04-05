@@ -3,8 +3,13 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
+#This standing the dog wanted to lean and fall backwards 
 stand_back = [[0.475, 1.275, 2.500]]
 stand_front =[[7.486, 5.775, 2.500]]
+
+# Moving Back Knee to more under dog not so far behind it.
+stand_back_v2 = [[1.579, 2.256, 2.500]]
+stand_front_v2 =[[6.420, 4.909, 2.500]]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -163,10 +168,10 @@ def set_leg_pos(leg, stand):
         leg[2].set_position(hip_position)        # Hip
 
 def stand():
-    set_leg_pos(front_left, stand_front)
-    set_leg_pos(front_right, stand_front)
-    set_leg_pos(back_left, stand_back)
-    set_leg_pos(back_right, stand_back)
+    set_leg_pos(front_left, stand_front_v2)
+    set_leg_pos(front_right, stand_front_v2)
+    set_leg_pos(back_left, stand_back_v2)
+    set_leg_pos(back_right, stand_back_v2)
 
 async def idle_lower():
     # Set Front and Back Knee and Shoulder Motors to Idle State
@@ -406,10 +411,10 @@ async def controller():
 
         #await idle_lower()
 
-        #stand()
+        stand()
 
         # This is for setting a set of legs to idle and printing positions.
-        await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
+        #await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
         

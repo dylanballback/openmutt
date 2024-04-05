@@ -186,7 +186,7 @@ async def calibrate():
     print("Calibration Complete: Absolute Position Set.")
 
 
-async def print_positions_continuously(duration, interval=1):
+async def print_positions_continuously(duration, interval=0.1):
     stop_at = datetime.now() + timedelta(seconds=duration)
     while datetime.now() < stop_at:
         print_positions()

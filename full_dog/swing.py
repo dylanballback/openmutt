@@ -206,7 +206,7 @@ async def controller():
         
         
         await set_all_filtered_pos_control()
-        #await closedlooop_lower()
+        #await closedloop_lower()
         await asyncio.sleep(2)
         
         

@@ -221,25 +221,12 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
 
 
 async def leg_square_gait(leg, gait, delay=3):
-    i=0
     while True:
-        
         for position in gait:
-            print(i)
             # Assuming leg is a list [knee, shoulder, hip]
-            #leg[0].set_position(position[0])  # Knee
-            print(leg[0])
-            print(position[0])
-            print("")
-            #leg[1].set_position(position[1])  # Shoulder
-            print(leg[1])
-            print(position[1])
-            print("")
-            #leg[2].set_position(position[2])  # Hip
-            print(leg[2])
-            print(position[2])
-            print("")
-            i= +1
+            leg[0].set_position(position[0])  # Knee
+            leg[1].set_position(position[1])  # Shoulder
+            leg[2].set_position(position[2])  # Hip
             await asyncio.sleep(delay)  # Wait for the leg to move to the position
 
 #await leg_square_gait(back_right, square_gait_v1)
@@ -272,7 +259,9 @@ async def controller():
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
 
-        await leg_square_gait(back_right, square_gait_v1)
+        #await leg_square_gait(back_right, square_gait_v1)
+
+        await asyncio.gather(leg_square_gait(back_right, square_gait_v1), print_positions_continuously(1000))
 
         """
         # Create tasks for each joint to move smoothly between its ranges
@@ -293,9 +282,9 @@ async def controller():
         await asyncio.gather(*tasks)
         """
 
-        await idle_lower()
+        #await idle_lower()
 
-        await print_positions_continuously(1000)
+        #await print_positions_continuously(1000)
         
         """
         await set_idle()

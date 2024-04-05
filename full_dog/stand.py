@@ -125,7 +125,7 @@ async def set_idle():
     print("Idle")
 
 async def set_all_filtered_pos_control():
-    clear_buffer()
+    await clear_buffer()
     await asyncio.sleep(0.5)
     for odrive in odrives:
         # Set each ODrive to filtered position control

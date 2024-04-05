@@ -100,6 +100,13 @@ def print_positions():
     def format_position(pos):
         return f"{pos:.3f}" if pos is not None else "Unknown"
 
+    # Number of lines to move up the cursor before reprinting
+    num_lines = 11  # Adjust this number based on actual lines printed
+
+    # Move the cursor up `num_lines` times
+    print(f"\033[{num_lines}A", end='')
+
+    # Print the positions; these will overwrite the previous output
     print(f"Front Left Knee Position: {format_position(front_left_knee.position)}")
     print(f"Front Left Shoulder Position: {format_position(front_left_shoulder.position)}")
     print(f"Front Left Hip Position: {format_position(front_left_hip.position)}")
@@ -115,8 +122,8 @@ def print_positions():
     print(f"Back Right Knee Position: {format_position(back_right_knee.position)}")
     print(f"Back Right Shoulder Position: {format_position(back_right_shoulder.position)}")
     print(f"Back Right Hip Position: {format_position(back_right_hip.position)}")
-    for i in range(5):
-        print("      ")
+    print("      ")
+
 
 async def clear_buffer():
     front_left_knee.flush_can_buffer()

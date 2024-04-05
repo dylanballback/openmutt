@@ -234,8 +234,8 @@ async def leg_square_gait(leg, gait, delay=1):
 
     # Define the multipliers for knee, shoulder, and hip for each leg
     multipliers = {
-        'front_right': (-1, -1, 1),
-        'front_left': (1, 1, -1),
+        'front_right': (1, 1, 1),
+        'front_left': (-1, -1, -1),
         'back_right': (1, 1, -1),
         'back_left': (-1, -1, 1),
     }

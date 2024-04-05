@@ -95,34 +95,10 @@ def set_limits():
         odrive.set_limits(velocity_limit=velocity_limit, current_limit=current_limit)
 
 
-# Assume these are global or accessible within the scope of print_positions
-labels_printed = False
-
-def print_labels_once():
-    global labels_printed
-    if not labels_printed:
-        print("Front Left Knee Position:      ")
-        print("Front Left Shoulder Position:  ")
-        print("Front Left Hip Position:       ")
-        print("      ")
-        print("Front Right Knee Position:     ")
-        print("Front Right Shoulder Position: ")
-        print("Front Right Hip Position:      ")
-        print("      ")
-        print("Back Left Knee Position:       ")
-        print("Back Left Shoulder Position:   ")
-        print("Back Left Hip Position:        ")
-        print("      ")
-        print("Back Right Knee Position:      ")
-        print("Back Right Shoulder Position:  ")
-        print("Back Right Hip Position:       ")
-        print("      ")
-        labels_printed = True
-
 def print_positions():
     
-    print(f"\rFront Left: {front_left_knee.position:.3f}, {front_left_shoulder.position:.3f}, {front_left_hip.position:.3f}  Front Right: {front_right_knee.position:.3f}, {front_right_shoulder.position:.3f}, {front_right_hip.position:.3f} "
-              f"Back Left: {back_left_knee.position:.3f}, {back_left_shoulder.position:.3f}, {back_left_hip.position:.3f}  Back Right: {back_right_knee.position:.3f}, {back_right_shoulder.position:.3f}, {back_right_hip.position:.3f}", end='', flush=True)
+    print(f"\rFront Left: {front_left_knee.position:.3f}, {front_left_shoulder.position:.3f}, {front_left_hip.position:.3f}   Front Right: {front_right_knee.position:.3f}, {front_right_shoulder.position:.3f}, {front_right_hip.position:.3f}   "
+              f"Back Left: {back_left_knee.position:.3f}, {back_left_shoulder.position:.3f}, {back_left_hip.position:.3f}   Back Right: {back_right_knee.position:.3f}, {back_right_shoulder.position:.3f}, {back_right_hip.position:.3f}", end='', flush=True)
 
 
 async def clear_buffer():
@@ -186,7 +162,7 @@ async def calibrate():
     print("Calibration Complete: Absolute Position Set.")
 
 
-async def print_positions_continuously(duration, interval=0.1):
+async def print_positions_continuously(duration, interval=0.2):
     stop_at = datetime.now() + timedelta(seconds=duration)
     while datetime.now() < stop_at:
         print_positions()
@@ -232,8 +208,6 @@ async def controller():
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
 
-        # At the start of your main loop or initialization section
-        print_labels_once()
         
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [

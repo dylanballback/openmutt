@@ -232,11 +232,11 @@ async def leg_square_gait(leg, gait, delay=3):
             print(position[0])
             print("")
             #leg[1].set_position(position[1])  # Shoulder
-            print(leg[0])
+            print(leg[1])
             print(position[1])
             print("")
             #leg[2].set_position(position[2])  # Hip
-            print(leg[0])
+            print(leg[2])
             print(position[2])
             print("")
             i= +1

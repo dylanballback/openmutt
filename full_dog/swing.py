@@ -115,7 +115,7 @@ back_left = [
 ]
 
 def stand():
-    
+    pass
 
 
 async def idle_lower():

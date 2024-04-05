@@ -95,39 +95,66 @@ def set_limits():
         odrive.set_limits(velocity_limit=velocity_limit, current_limit=current_limit)
 
 
+# Assume these are global or accessible within the scope of print_positions
+labels_printed = False
+
+def print_labels_once():
+    global labels_printed
+    if not labels_printed:
+        print("Front Left Knee Position:      ")
+        print("Front Left Shoulder Position:  ")
+        print("Front Left Hip Position:       ")
+        print("      ")
+        print("Front Right Knee Position:     ")
+        print("Front Right Shoulder Position: ")
+        print("Front Right Hip Position:      ")
+        print("      ")
+        print("Back Left Knee Position:       ")
+        print("Back Left Shoulder Position:   ")
+        print("Back Left Hip Position:        ")
+        print("      ")
+        print("Back Right Knee Position:      ")
+        print("Back Right Shoulder Position:  ")
+        print("Back Right Hip Position:       ")
+        print("      ")
+        labels_printed = True
+
 def print_positions():
+    global labels_printed
+    if not labels_printed:
+        print_labels_once()
+
     # Helper function to format the position
     def format_position(pos):
         return f"{pos:.3f}" if pos is not None else "Unknown"
 
-    # Number of lines to move up the cursor before reprinting
-    #num_lines = 11  # Adjust this number based on actual lines printed
-
-    # Move the cursor up `num_lines` times
-    #print(f"\033[{num_lines}A", end='')
-
-    # Print the positions; these will overwrite the previous output
-    position_lines = [
-        f"Front Left Knee Position: {format_position(front_left_knee.position)}",
-        f"Front Left Shoulder Position: {format_position(front_left_shoulder.position)}",
-        f"Front Left Hip Position: {format_position(front_left_hip.position)}",
-        "      ",
-        f"Front Right Knee Position: {format_position(front_right_knee.position)}",
-        f"Front Right Shoulder Position: {format_position(front_right_shoulder.position)}",
-        f"Front Right Hip Position: {format_position(front_right_hip.position)}",
-        "      ",
-        f"Back Left Knee Position: {format_position(back_left_knee.position)}",
-        f"Back Left Shoulder Position: {format_position(back_left_shoulder.position)}",
-        f"Back Left Hip Position: {format_position(back_left_hip.position)}",
-        "      ",
-        f"Back Right Knee Position: {format_position(back_right_knee.position)}",
-        f"Back Right Shoulder Position: {format_position(back_right_shoulder.position)}",
-        f"Back Right Hip Position: {format_position(back_right_hip.position)}",
-        "      "
+    positions = [
+        front_left_knee.position,
+        front_left_shoulder.position,
+        front_left_hip.position,
+        front_right_knee.position,
+        front_right_shoulder.position,
+        front_right_hip.position,
+        back_left_knee.position,
+        back_left_shoulder.position,
+        back_left_hip.position,
+        back_right_knee.position,
+        back_right_shoulder.position,
+        back_right_hip.position
     ]
 
-    # Print all position lines, then flush the output
-    print("\n".join(position_lines), end='', flush=True)
+    # Move the cursor to the beginning of the printing area
+    print(f"\033[{len(positions) + 4}A")  # Adjust 4 to the number of extra lines printed
+
+    # Update only the values
+    for i, position in enumerate(positions):
+        print(f"\033[K{format_position(position)}")  # Clear the line and print the position
+        if (i + 1) % 3 == 0:
+            print("\033[K      ")  # Extra spacing after every third position
+
+
+
+
 
 async def clear_buffer():
     front_left_knee.flush_can_buffer()
@@ -236,8 +263,8 @@ async def controller():
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(5)
 
-        print("Moving")
-        
+        # At the start of your main loop or initialization section
+        print_labels_once()
         
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [

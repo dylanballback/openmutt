@@ -209,7 +209,7 @@ async def controller():
         
         
         await set_all_filtered_pos_control()
-        await closedlooop_lower()
+        #await closedlooop_lower()
         await asyncio.sleep(5)
         
         

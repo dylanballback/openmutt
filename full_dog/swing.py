@@ -210,7 +210,7 @@ async def controller():
         await asyncio.sleep(2)
         
         
-        hip_position = 2.1
+        hip_position = 2.8
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
         back_right_hip.set_position(-hip_position)

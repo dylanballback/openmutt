@@ -261,7 +261,7 @@ async def controller():
 
         #await leg_square_gait(back_right, square_gait_v1)
 
-        await asyncio.gather(leg_square_gait(back_right, square_gait_v1), print_positions_continuously(1000))
+        await asyncio.gather(leg_square_gait(back_left, square_gait_v1), print_positions_continuously(1000))
 
         """
         # Create tasks for each joint to move smoothly between its ranges

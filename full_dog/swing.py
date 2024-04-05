@@ -82,7 +82,13 @@ kneesandshoulder = [
 ]
 
 
-async def closedlooop_lower():
+async def idle_lower():
+    for knee in kneesandshoulder:
+        knee.setAxisState("idle")
+        await asyncio.sleep(0.2)
+
+
+async def closedloop_lower():
     for knee in kneesandshoulder:
         knee.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
@@ -166,7 +172,7 @@ async def calibrate():
     print("Calibration Complete: Absolute Position Set.")
 
 
-async def print_positions_continuously(duration, interval=0.2):
+async def print_positions_continuously(duration, interval=0.5):
     stop_at = datetime.now() + timedelta(seconds=duration)
     while datetime.now() < stop_at:
         print_positions()
@@ -229,6 +235,10 @@ async def controller():
         
         await asyncio.gather(*tasks)
         
+
+        await idle_lower()
+
+        await print_positions_continuously(1000)
         
         """
         await set_idle()

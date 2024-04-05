@@ -8,8 +8,11 @@ stand_back = [[0.475, 1.275, 2.500]]
 stand_front =[[7.486, 5.775, 2.500]]
 
 # Moving Back Knee to more under dog not so far behind it.
+# Dog still wants to lean too far back and fall.
 stand_back_v2 = [[1.579, 2.256, 2.500]]
 stand_front_v2 =[[6.420, 4.909, 2.500]]
+
+
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -411,10 +414,10 @@ async def controller():
 
         #await idle_lower()
 
-        stand()
+        #stand()
 
         # This is for setting a set of legs to idle and printing positions.
-        #await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
+        await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
         

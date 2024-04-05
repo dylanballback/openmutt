@@ -181,12 +181,12 @@ async def controller():
         await asyncio.sleep(0.5)
         #clear_buffer()
         #await asyncio.sleep(0.5)
-        #set_closed_loop()
-        #await asyncio.sleep(0.5)
-        #print_positions()
-        #await asyncio.sleep(0.5)
+        set_closed_loop()
+        await asyncio.sleep(0.5)
+        print_positions()
+        await asyncio.sleep(0.5)
         
-        #await calibrate()
+        await calibrate()
         #await asyncio.sleep(2)
         
         
@@ -194,13 +194,14 @@ async def controller():
 
         await asyncio.sleep(5)
         
-
+        """
+        
         hip_position = 2
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(hip_position)
         back_right_hip.set_position(hip_position)
         back_left_hip.set_position(hip_position)
-        
+        """
 
         print("Moving")
         
@@ -218,9 +219,9 @@ async def controller():
             # Add tasks for other joints as necessary
         ]
 
-        await asyncio.gather(*tasks)
+        #await asyncio.gather(*tasks)
         
-        """
+        
         set_idle()
 
         clear_buffer()
@@ -228,7 +229,7 @@ async def controller():
 
         set_idle()
 
-
+        """
         await set_closed_loop()
         await asyncio.sleep(2)
 

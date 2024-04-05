@@ -89,6 +89,14 @@ kneesandshoulder = [
 ]
 
 
+front_kneesandshoulder = [
+    front_left_knee,
+    front_left_shoulder,
+    front_right_knee,
+    front_right_shoulder
+]
+
+
 
 front_right = [
     front_right_knee,
@@ -150,8 +158,8 @@ def set_leg_pos(leg, stand):
         leg[2].set_position(hip_position)        # Hip
 
 def stand():
-    set_leg_pos(front_left, stand_front)
-    set_leg_pos(front_right, stand_front)
+    #set_leg_pos(front_left, stand_front)
+    #set_leg_pos(front_right, stand_front)
     set_leg_pos(back_left, stand_back)
     set_leg_pos(back_right, stand_back)
 
@@ -160,6 +168,11 @@ async def idle_lower():
         knee.setAxisState("idle")
         await asyncio.sleep(0.2)
 
+
+async def front_idle_lower():
+    for knee in front_kneesandshoulder:
+        knee.setAxisState("idle")
+        await asyncio.sleep(0.2)
 
 async def closedloop_lower():
     for knee in kneesandshoulder:
@@ -381,7 +394,10 @@ async def controller():
 
         stand()
 
-        await print_positions_continuously(1000)
+        await asyncio.gather(front_idle_lower(), print_positions_continuously(1000))
+
+        #await front_idle_lower()
+        #await print_positions_continuously(1000)
         
         """
         await set_idle()

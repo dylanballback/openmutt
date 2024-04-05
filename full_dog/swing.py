@@ -369,7 +369,7 @@ async def controller():
         
         
         
-        hip_position = 2.5
+        hip_position = 2.4
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
         back_right_hip.set_position(-hip_position)

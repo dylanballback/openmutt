@@ -3,6 +3,9 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
+square_gait_v1 = [[-1.231, -1.706, 2.500], [-0.257, -1.193, 2.500], [-0.102, -1.730, 2.500], [-1.017, -2.235, 2.500]]
+
+
 #Node ID for each leg (goes from hip, shoulder, knee)
 front_left = [2, 1, 0]
 front_right = [3, 4, 5]
@@ -80,6 +83,34 @@ kneesandshoulder = [
     back_right_knee,
     back_right_shoulder
 ]
+
+
+
+front_right = [
+    front_right_knee,
+    front_right_shoulder,
+    front_right_hip,
+]
+
+front_left = [
+    front_left_knee,
+    front_left_shoulder,
+    front_left_hip,
+]
+
+back_right = [
+    back_right_knee,
+    back_right_shoulder,
+    back_right_hip
+]
+
+back_left = [
+    back_left_knee,
+    back_left_shoulder,
+    back_left_hip,
+]
+
+
 
 
 async def idle_lower():
@@ -189,6 +220,17 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
         await asyncio.sleep(sleep_time)
 
 
+async def leg_square_gait(leg, gait, delay=3):
+    while True:
+        for position in gait:
+            # Assuming leg is a list [knee, shoulder, hip]
+            leg[0].set_position(position[0])  # Knee
+            leg[1].set_position(position[1])  # Shoulder
+            leg[2].set_position(position[2])  # Hip
+            await asyncio.sleep(delay)  # Wait for the leg to move to the position
+
+#await leg_square_gait(back_right, square_gait_v1)
+
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
         await clear_buffer()
@@ -201,8 +243,8 @@ async def controller():
         await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
-        #await calibrate()
-        #await asyncio.sleep(10)
+        await calibrate()
+        await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
@@ -210,7 +252,7 @@ async def controller():
         await asyncio.sleep(2)
         
         
-        hip_position = 2.5
+        hip_position = 2.4
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
         back_right_hip.set_position(-hip_position)

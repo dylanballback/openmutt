@@ -212,7 +212,7 @@ async def print_positions_continuously(duration, interval=0.5):
 
 
 # Function to move a joint smoothly between a min and max position
-async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
+async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
     while True:
         odrive.set_position(min_pos)
         await asyncio.sleep(sleep_time)

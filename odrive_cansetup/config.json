@@ -27,5 +27,5 @@
     "axis0.config.load_encoder": 13,
     "axis0.config.commutation_encoder": 13,
     "axis0.controller.config.absolute_setpoints": true,
-    "axis0.controller.config.input_filter_bandwidth": 1.0
+    "axis0.controller.config.input_filter_bandwidth": 3.0
 }

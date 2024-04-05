@@ -224,9 +224,18 @@ async def leg_square_gait(leg, gait, delay=3):
     while True:
         for position in gait:
             # Assuming leg is a list [knee, shoulder, hip]
-            leg[0].set_position(position[0])  # Knee
-            leg[1].set_position(position[1])  # Shoulder
-            leg[2].set_position(position[2])  # Hip
+            #leg[0].set_position(position[0])  # Knee
+            print(leg[0])
+            print(position[0])
+            print("")
+            #leg[1].set_position(position[1])  # Shoulder
+            print(leg[0])
+            print(position[1])
+            print("")
+            #leg[2].set_position(position[2])  # Hip
+            print(leg[0])
+            print(position[2])
+            print("")
             await asyncio.sleep(delay)  # Wait for the leg to move to the position
 
 #await leg_square_gait(back_right, square_gait_v1)
@@ -243,8 +252,8 @@ async def controller():
         await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
-        await calibrate()
-        await asyncio.sleep(10)
+        #await calibrate()
+        #await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
@@ -258,6 +267,8 @@ async def controller():
         back_right_hip.set_position(-hip_position)
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
+
+        await leg_square_gait(back_right, square_gait_v1)
 
         """
         # Create tasks for each joint to move smoothly between its ranges

@@ -102,9 +102,10 @@ def print_positions():
         print("      ")
 
 async def clear_buffer():
-    for odrive in odrives:
-        odrive.flush_can_buffer()
-        await asyncio.sleep(0.2)
+    front_left_knee.flush_can_buffer()
+    await asyncio.sleep(0.2)
+    back_left_knee.flush_can_buffer()
+        
 
 async def clear_errors():
     for odrive in odrives:

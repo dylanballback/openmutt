@@ -3,7 +3,7 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
-square_gait_v1 = [[-1.231, -1.706, 2.500], [-0.257, -1.193, 2.500], [-0.102, -1.730, 2.500], [-1.017, -2.235, 2.500]]
+square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
 
 #Node ID for each leg (goes from hip, shoulder, knee)
@@ -139,7 +139,7 @@ def print_positions():
         return f"{pos:.3f}" if pos is not None else "Unknown"
     
     print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
-              f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}", end='', flush=True)
+              f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_right_knee.position)}, {format_position(back_right_shoulder.position)}, {format_position(back_right_hip.position)}", end='', flush=True)
 
 
 async def clear_buffer():
@@ -221,15 +221,43 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
 
 
 async def leg_square_gait(leg, gait, delay=1):
+    leg_name = ''
+    # Determine which leg we are controlling based on the motors list
+    if leg == front_right:
+        leg_name = 'front_right'
+    elif leg == front_left:
+        leg_name = 'front_left'
+    elif leg == back_right:
+        leg_name = 'back_right'
+    elif leg == back_left:
+        leg_name = 'back_left'
+
+    # Define the multipliers for knee, shoulder, and hip for each leg
+    multipliers = {
+        'front_right': (-1, -1, 1),
+        'front_left': (1, 1, -1),
+        'back_right': (1, 1, -1),
+        'back_left': (-1, -1, 1),
+    }
+
+    # Get the multipliers for the current leg
+    knee_mult, shoulder_mult, hip_mult = multipliers.get(leg_name, (1, 1, 1))
+
     while True:
         for position in gait:
-            # Assuming leg is a list [knee, shoulder, hip]
-            leg[0].set_position(position[0])  # Knee
-            leg[1].set_position(position[1])  # Shoulder
-            leg[2].set_position(position[2])  # Hip
-            await asyncio.sleep(delay)  # Wait for the leg to move to the position
+            # Apply the sign multipliers to the positions
+            knee_position = knee_mult * position[0]
+            shoulder_position = shoulder_mult * position[1]
+            hip_position = hip_mult * position[2]
 
-#await leg_square_gait(back_right, square_gait_v1)
+            # Set positions for each motor
+            leg[0].set_position(knee_position)       # Knee
+            leg[1].set_position(shoulder_position)   # Shoulder
+            leg[2].set_position(hip_position)        # Hip
+
+            await asyncio.sleep(delay)  # Delay between each movement
+
+#await leg_square_gait(back_left, square_gait_v1)
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
@@ -243,8 +271,8 @@ async def controller():
         #await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
-        await calibrate()
-        await asyncio.sleep(10)
+        #await calibrate()
+        #await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()

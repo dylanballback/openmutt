@@ -120,37 +120,9 @@ def print_labels_once():
         labels_printed = True
 
 def print_positions():
-    # Helper function to format the position
-    def format_position(pos):
-        return f"{pos:.3f}" if pos is not None else "Unknown"
-
-    # Assuming these objects are accessible in this scope
-    global front_left_knee, front_left_shoulder, front_left_hip
-    global front_right_knee, front_right_shoulder, front_right_hip
-    global back_left_knee, back_left_shoulder, back_left_hip
-    global back_right_knee, back_right_shoulder, back_right_hip
-
-    positions = [
-        ("Front Left Knee", front_left_knee.position),
-        ("Front Left Shoulder", front_left_shoulder.position),
-        ("Front Left Hip", front_left_hip.position),
-        ("Front Right Knee", front_right_knee.position),
-        ("Front Right Shoulder", front_right_shoulder.position),
-        ("Front Right Hip", front_right_hip.position),
-        ("Back Left Knee", back_left_knee.position),
-        ("Back Left Shoulder", back_left_shoulder.position),
-        ("Back Left Hip", back_left_hip.position),
-        ("Back Right Knee", back_right_knee.position),
-        ("Back Right Shoulder", back_right_shoulder.position),
-        ("Back Right Hip", back_right_hip.position)
-    ]
-
-    # Clear the screen or create enough buffer
-    print("\n" * 100)
-
-    for label, position in positions:
-        print(f"{label} Position: {format_position(position)}")
-
+    
+    print(f"\rFront Left: {front_left_knee.position:.3f}, {front_left_shoulder.position:.3f}, {front_left_hip.position:.3f}  Front Right: {front_right_knee.position:.3f}, {front_right_shoulder.position:.3f}, {front_right_hip.position:.3f} "
+              f"Back Left: {back_left_knee.position:.3f}, {back_left_shoulder.position:.3f}, {back_left_hip.position:.3f}  Back Right: {back_right_knee.position:.3f}, {back_right_shoulder.position:.3f}, {back_right_hip.position:.3f}", end='', flush=True)
 
 
 async def clear_buffer():

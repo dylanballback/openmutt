@@ -370,14 +370,14 @@ async def controller():
         await asyncio.sleep(2)
         
         
-        
+        """
         hip_position = 2.4
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
         back_right_hip.set_position(-hip_position)
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
-        """
+        
         
         # Square Gait all four Legs
         tasks = [
@@ -423,7 +423,7 @@ async def controller():
 
         #await front_idle_lower()
         
-        #await print_positions_continuously(1000)
+        await print_positions_continuously(1000)
         
         """
         await set_idle()

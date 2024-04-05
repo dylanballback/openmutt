@@ -154,8 +154,8 @@ async def calibrate():
         odrive.set_absolute_position(0)
         await asyncio.sleep(0.1)
 
-    set_idle()
-    save_config()
+    await set_idle()
+    await save_config()
 
     print("Calibration Complete: Absolute Position Set.")
 
@@ -278,7 +278,7 @@ async def main():
     await clear_buffer()
     await asyncio.sleep(1)
     await clear_errors()
-    
+
     set_limits()
     
     try:

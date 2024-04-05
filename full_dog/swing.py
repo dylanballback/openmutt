@@ -5,7 +5,7 @@ import time
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
-
+front_square_gait_v1 = [[7.129, 5.946, 2.500], [7.822, 5.946, 2.500], [7.915, 5.628, 2.500], [7.111, 5.207, 2.500]]
 
 #Node ID for each leg (goes from hip, shoulder, knee)
 front_left = [2, 1, 0]
@@ -243,8 +243,10 @@ async def leg_square_gait(leg, gait, delay=3):
 
     # Define offsets for the front legs
     offsets = {
-        'front_right': (5, 3.5),
-        'front_left': (5, 3.5),
+        'front_right': (0, 0),
+        'front_left': (0, 0),
+        #'front_right': (5, 3.5),
+        #'front_left': (5, 3.5),
     }
 
     # Get the multipliers for the current leg
@@ -298,10 +300,10 @@ async def controller():
         await asyncio.sleep(2)
 
         
-        """
+        
         tasks = [
-            leg_square_gait(front_left, square_gait_v1),
-            leg_square_gait(front_right, square_gait_v1),
+            leg_square_gait(front_left, front_square_gait_v1),
+            leg_square_gait(front_right, front_square_gait_v1),
             leg_square_gait(back_left, square_gait_v1),
             leg_square_gait(back_right, square_gait_v1),
             print_positions_continuously(1000)
@@ -311,7 +313,7 @@ async def controller():
         
         # Testing just one (back left) leg with square gait
         #await asyncio.gather(leg_square_gait(back_left, square_gait_v1), print_positions_continuously(1000))
-
+        """
         
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [

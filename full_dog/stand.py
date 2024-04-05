@@ -186,23 +186,13 @@ async def controller():
         #print_positions()
         #await asyncio.sleep(0.5)
         
-        await calibrate()
-
-        """
-        await asyncio.sleep(2)
+        #await calibrate()
+        #await asyncio.sleep(2)
+        
+        
         set_all_filtered_pos_control()
 
         await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(2)
         
 
         hip_position = 2
@@ -211,22 +201,8 @@ async def controller():
         back_right_hip.set_position(hip_position)
         back_left_hip.set_position(hip_position)
         
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(5)
-        clear_buffer()
-        await asyncio.sleep(2)
 
         print("Moving")
-        
-
-
         
 
         # Create tasks for each joint to move smoothly between its ranges
@@ -242,22 +218,23 @@ async def controller():
             # Add tasks for other joints as necessary
         ]
 
-        #await asyncio.gather(*tasks)
+        await asyncio.gather(*tasks)
         
-
+        """
         set_idle()
 
         clear_buffer()
         await asyncio.sleep(0.5)
 
         set_idle()
+
+
+        await set_closed_loop()
+        await asyncio.sleep(2)
+
+        await set_closed_loop()
+        await asyncio.sleep(2)
         """
-
-        await set_closed_loop()
-        await asyncio.sleep(2)
-
-        await set_closed_loop()
-        await asyncio.sleep(2)
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)

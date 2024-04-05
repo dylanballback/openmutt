@@ -1,7 +1,7 @@
 {
     "config.dc_bus_overvoltage_trip_level": 40,
     "config.dc_bus_undervoltage_trip_level": 10.5,
-    "config.dc_max_positive_current": 5,
+    "config.dc_max_positive_current": 15,
     "config.brake_resistor0.enable": true,
     "config.brake_resistor0.resistance": 2,
     "axis0.config.motor.motor_type": 0,

@@ -96,9 +96,13 @@ def set_limits():
 
 
 def print_positions():
+
+    # Helper function to format the position
+    def format_position(pos):
+        return f"{pos:.3f}" if pos is not None else "Unknown"
     
-    print(f"\rFront Left: {front_left_knee.position:.3f}, {front_left_shoulder.position:.3f}, {front_left_hip.position:.3f}   Front Right: {front_right_knee.position:.3f}, {front_right_shoulder.position:.3f}, {front_right_hip.position:.3f}   "
-              f"Back Left: {back_left_knee.position:.3f}, {back_left_shoulder.position:.3f}, {back_left_hip.position:.3f}   Back Right: {back_right_knee.position:.3f}, {back_right_shoulder.position:.3f}, {back_right_hip.position:.3f}", end='', flush=True)
+    print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
+              f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}", end='', flush=True)
 
 
 async def clear_buffer():
@@ -189,18 +193,15 @@ async def controller():
         #await asyncio.sleep(0.5)
         await set_closed_loop()
         await asyncio.sleep(0.2)
-        print_positions()
-        await asyncio.sleep(0.2)
         
-
         # You must calibrate when the O-Drives are first powered up.
         #await calibrate()
-        #await asyncio.sleep(2)
+        #await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
         #await closedlooop_lower()
-        await asyncio.sleep(10)
+        await asyncio.sleep(2)
         
         
         hip_position = 1.7

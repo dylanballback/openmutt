@@ -142,6 +142,7 @@ def estop_all():
 def bus_shutdown_all():
     for odrive in odrives:
         odrive.bus_shutdown()
+        time.sleep(0.1)
         
 
 async def save_config():

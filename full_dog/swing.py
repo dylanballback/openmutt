@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 import time
 
 stand_back = [[1.231, 1.706, 2.500]]
-stand_front =[[7.129, 5.946, 2.500]]
+stand_front =[[7.486, 5.775, 2.500]]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -96,7 +96,12 @@ front_kneesandshoulder = [
     front_right_shoulder
 ]
 
-
+back_kneesandshoulder = [
+    back_left_knee,
+    back_left_shoulder,
+    back_right_knee,
+    back_right_shoulder
+]
 
 front_right = [
     front_right_knee,
@@ -158,23 +163,32 @@ def set_leg_pos(leg, stand):
         leg[2].set_position(hip_position)        # Hip
 
 def stand():
-    #set_leg_pos(front_left, stand_front)
-    #set_leg_pos(front_right, stand_front)
-    set_leg_pos(back_left, stand_back)
-    set_leg_pos(back_right, stand_back)
+    set_leg_pos(front_left, stand_front)
+    set_leg_pos(front_right, stand_front)
+    #set_leg_pos(back_left, stand_back)
+    #set_leg_pos(back_right, stand_back)
 
 async def idle_lower():
+    # Set Front and Back Knee and Shoulder Motors to Idle State
     for knee in kneesandshoulder:
         knee.setAxisState("idle")
         await asyncio.sleep(0.2)
 
 
 async def front_idle_lower():
+    # Set Front Knee and Shoulder Motors to Idle State
     for knee in front_kneesandshoulder:
         knee.setAxisState("idle")
         await asyncio.sleep(0.2)
 
+async def back_idle_lower():
+    # Set Back Knee and Shoulder Motors to Idle State
+    for knee in back_kneesandshoulder:
+        knee.setAxisState("idle")
+        await asyncio.sleep(0.2)
+
 async def closedloop_lower():
+    # Set Front Knee and Shoulder Motors to Closed Loop 
     for knee in kneesandshoulder:
         knee.setAxisState("closed_loop_control")
         await asyncio.sleep(0.2)
@@ -394,7 +408,7 @@ async def controller():
 
         stand()
 
-        await asyncio.gather(front_idle_lower(), print_positions_continuously(1000))
+        await asyncio.gather(back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
         #await print_positions_continuously(1000)

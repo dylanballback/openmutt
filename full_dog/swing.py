@@ -179,6 +179,7 @@ def stand():
     set_leg_pos(front_right, stand_front_v4)
     set_leg_pos(back_left, stand_back_v4)
     set_leg_pos(back_right, stand_back_v4)
+    print("Standing!")
 
 async def idle_lower():
     # Set Front and Back Knee and Shoulder Motors to Idle State
@@ -425,7 +426,7 @@ async def controller():
 
         #await front_idle_lower()
         #await set_idle()
-        
+
         await print_positions_continuously(1000)
         
         """

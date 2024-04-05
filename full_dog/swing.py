@@ -363,11 +363,11 @@ async def controller():
         #await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
-        await calibrate()
-        await asyncio.sleep(10)
+        #await calibrate()
+        #await asyncio.sleep(10)
         
         
-        #await set_all_filtered_pos_control()
+        await set_all_filtered_pos_control()
         #await closedloop_lower()
         await asyncio.sleep(2)
         
@@ -418,13 +418,14 @@ async def controller():
 
         #await idle_lower()
 
-        #stand()
+        stand()
 
         # This is for setting a set of legs to idle and printing positions.
         #await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
-        await set_idle()
+        #await set_idle()
+        
         await print_positions_continuously(1000)
         
         """

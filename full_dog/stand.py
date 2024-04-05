@@ -253,6 +253,10 @@ async def controller():
         """
 
         await set_closed_loop()
+        await asyncio.sleep(2)
+
+        await set_closed_loop()
+        await asyncio.sleep(2)
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)

@@ -223,6 +223,7 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
 async def leg_square_gait(leg, gait, delay=3):
     while True:
         for position in gait:
+            print(i=0)
             # Assuming leg is a list [knee, shoulder, hip]
             #leg[0].set_position(position[0])  # Knee
             print(leg[0])
@@ -236,6 +237,7 @@ async def leg_square_gait(leg, gait, delay=3):
             print(leg[0])
             print(position[2])
             print("")
+            i= +1
             await asyncio.sleep(delay)  # Wait for the leg to move to the position
 
 #await leg_square_gait(back_right, square_gait_v1)
@@ -248,8 +250,8 @@ async def controller():
         await asyncio.sleep(0.2)
         #clear_buffer()
         #await asyncio.sleep(0.5)
-        await set_closed_loop()
-        await asyncio.sleep(0.2)
+        #await set_closed_loop()
+        #await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
         #await calibrate()

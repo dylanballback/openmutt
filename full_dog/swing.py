@@ -358,10 +358,10 @@ async def controller():
         await asyncio.sleep(0.2)
         await clear_errors()
         await asyncio.sleep(0.2)
-        #clear_buffer()
-        #await asyncio.sleep(0.5)
-        #await set_closed_loop()
-        #await asyncio.sleep(0.2)
+        clear_buffer()
+        await asyncio.sleep(0.5)
+        await set_closed_loop()
+        await asyncio.sleep(0.2)
         
         # You must calibrate when the O-Drives are first powered up.
         #await calibrate()
@@ -371,6 +371,8 @@ async def controller():
         await set_all_filtered_pos_control()
         #await closedloop_lower()
         await asyncio.sleep(2)
+        await set_all_filtered_pos_control()
+
         
         
         hip_position = 2.4

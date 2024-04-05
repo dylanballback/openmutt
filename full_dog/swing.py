@@ -221,8 +221,9 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=5):
 
 
 async def leg_square_gait(leg, gait, delay=3):
+    i=0
     while True:
-        i=0
+        
         for position in gait:
             print(i)
             # Assuming leg is a list [knee, shoulder, hip]

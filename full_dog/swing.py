@@ -306,10 +306,10 @@ async def controller():
         
         
         tasks = [
-            leg_square_gait(front_left, front_square_gait_v1),
-            leg_square_gait(front_right, front_square_gait_v1),
-            leg_square_gait(back_left, front_square_gait_v1),
-            leg_square_gait(back_right, front_square_gait_v1),
+            leg_square_gait(front_left, square_gait_v1),
+            leg_square_gait(front_right, square_gait_v1),
+            leg_square_gait(back_left, square_gait_v1),
+            leg_square_gait(back_right, square_gait_v1),
             print_positions_continuously(1000)
         ]
 

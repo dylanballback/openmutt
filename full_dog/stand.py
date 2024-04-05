@@ -70,6 +70,23 @@ odrives = [
     back_right_hip
 ]
 
+kneesandshoulder = [
+    front_left_knee,
+    front_left_shoulder,
+    front_right_knee,
+    front_right_shoulder,
+    back_left_knee,
+    back_left_shoulder,
+    back_right_knee,
+    back_right_shoulder
+]
+
+
+async def closedlooop_lower():
+    for knee in kneesandshoulder:
+        knee.setAxisState("closed_loop_control")
+        await asyncio.sleep(0.2)
+
 current_limit = 35.0
 velocity_limit = 10.0
 
@@ -192,7 +209,7 @@ async def controller():
         
         
         await set_all_filtered_pos_control()
-
+        await closedlooop_lower()
         await asyncio.sleep(5)
         
         

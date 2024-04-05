@@ -114,9 +114,46 @@ back_left = [
     back_left_hip,
 ]
 
-def stand():
-    pass
+def set_leg_pos(leg, stand):
+    leg_name = ''
+    # Determine which leg we are controlling based on the motors list
+    if leg == front_right:
+        leg_name = 'front_right'
+    elif leg == front_left:
+        leg_name = 'front_left'
+    elif leg == back_right:
+        leg_name = 'back_right'
+    elif leg == back_left:
+        leg_name = 'back_left'
 
+    # Define the multipliers for knee, shoulder, and hip for each leg
+    multipliers = {
+        'front_right': (-1, -1, 1),
+        'front_left': (1, 1, -1),
+        'back_right': (1, 1, -1),
+        'back_left': (-1, -1, 1),
+    }
+
+    # Get the multipliers for the current leg
+    knee_mult, shoulder_mult, hip_mult = multipliers.get(leg_name, (1, 1, 1))
+
+
+    for position in stand:
+        # Apply offsets to the knee and shoulder positions for front legs
+        knee_position = (position[0] ) * knee_mult
+        shoulder_position = (position[1] ) * shoulder_mult
+        hip_position = position[2] * hip_mult
+
+        # Set positions for each motor
+        leg[0].set_position(knee_position)       # Knee
+        leg[1].set_position(shoulder_position)   # Shoulder
+        leg[2].set_position(hip_position)        # Hip
+
+def stand():
+    set_leg_pos(front_left, stand_front)
+    set_leg_pos(front_right, stand_front)
+    set_leg_pos(back_left, stand_back)
+    set_leg_pos(back_right, stand_back)
 
 async def idle_lower():
     for knee in kneesandshoulder:
@@ -247,10 +284,10 @@ async def leg_square_gait(leg, gait, delay=3):
 
     # Define offsets for the front legs
     offsets = {
-        #'front_right': (0, 0),
-        #'front_left': (0, 0),
-        'front_right': (5.8, 4.2),
-        'front_left': (5.8, 4.2),
+        'front_right': (0, 0),
+        'front_left': (0, 0),
+        #'front_right': (5.8, 4.2),
+        #'front_left': (5.8, 4.2),
     }
 
     # Get the multipliers for the current leg
@@ -296,6 +333,7 @@ async def controller():
         await asyncio.sleep(2)
         
         
+        """
         hip_position = 2.4
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
@@ -304,17 +342,19 @@ async def controller():
         await asyncio.sleep(2)
 
         
-        
+        # Square Gait all four Legs
         tasks = [
-            leg_square_gait(front_left, square_gait_v1),
-            leg_square_gait(front_right, square_gait_v1),
+            leg_square_gait(front_left, front_square_gait_v1),
+            leg_square_gait(front_right, front_square_gait_v1),
             leg_square_gait(back_left, square_gait_v1),
             leg_square_gait(back_right, square_gait_v1),
             print_positions_continuously(1000)
         ]
 
         await asyncio.gather(*tasks)
-        
+        """
+
+
         # Testing just one (back left) leg with square gait
         #await asyncio.gather(leg_square_gait(back_left, square_gait_v1), print_positions_continuously(1000))
         """
@@ -337,7 +377,9 @@ async def controller():
         await asyncio.gather(*tasks)
         """
 
-        await idle_lower()
+        #await idle_lower()
+
+        stand()
 
         await print_positions_continuously(1000)
         

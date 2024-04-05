@@ -77,12 +77,6 @@ def set_limits():
     for odrive in odrives:
         odrive.set_limits(velocity_limit=velocity_limit, current_limit=current_limit)
 
-def calibrate():
-    for odrive in odrives:
-        odrive.set_absolute_position(0)
-
-    print("Calibration Complete: Absolute Position Set.")
-
 
 def print_positions():
     # Helper function to format the position
@@ -107,36 +101,36 @@ def print_positions():
     for i in range(5):
         print("      ")
 
-def clear_buffer():
+async def clear_buffer():
     for odrive in odrives:
         odrive.flush_can_buffer()
-        time.sleep(0.2)
+        await asyncio.sleep(0.2)
 
-def clear_errors():
+async def clear_errors():
     for odrive in odrives:
         odrive.clear_errors(identify=False)
-        time.sleep(0.2)
+        await asyncio.sleep(0.1)
 
 
-def set_closed_loop():
+async def set_closed_loop():
     for odrive in odrives:
         odrive.setAxisState("closed_loop_control")
-        time.sleep(0.2)
+        await asyncio.sleep(0.2)
 
-def set_idle():
+async def set_idle():
     for odrive in odrives:
         odrive.setAxisState("idle")
-        time.sleep(0.2)
+        await asyncio.sleep(0.2)
         
     print("Idle")
 
-def set_all_filtered_pos_control():
+async def set_all_filtered_pos_control():
     clear_buffer()
-    time.sleep(0.1)
+    await asyncio.sleep(0.5)
     for odrive in odrives:
         # Set each ODrive to filtered position control
         odrive.set_controller_mode(control_mode_name="position_control", input_mode_name="pos_filter")
-        time.sleep(0.1)  # Delay to prevent command overlap on CAN bus
+        await asyncio.sleep(0.1)  # Delay to prevent command overlap on CAN bus
         print(f"Set ODrive {odrive.nodeID} to filtered position control.")
 
 
@@ -147,17 +141,26 @@ def estop_all():
 def bus_shutdown_all():
     for odrive in odrives:
         odrive.bus_shutdown()
+        
 
-def save_config():
+async def save_config():
     for odrive in odrives:
         odrive.reboot_save(action="save")
+        await asyncio.sleep(0.1)
 
 
-def calibrate():
-    set_limits()
+async def calibrate():
+    for odrive in odrives:
+        odrive.set_absolute_position(0)
+        await asyncio.sleep(0.1)
+
     set_idle()
     save_config()
-    print("Calibration Complete")
+
+    print("Calibration Complete: Absolute Position Set.")
+
+
+
 
 
 # Function to move a joint smoothly between a min and max position
@@ -171,9 +174,9 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
 
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
-        clear_buffer()
+        await clear_buffer()
         await asyncio.sleep(0.5)
-        clear_errors()
+        await clear_errors()
         await asyncio.sleep(0.5)
         #clear_buffer()
         #await asyncio.sleep(0.5)
@@ -181,7 +184,8 @@ async def controller():
         #await asyncio.sleep(0.5)
         #print_positions()
         #await asyncio.sleep(0.5)
-        calibrate()
+        
+        await calibrate()
 
         """
         await asyncio.sleep(2)
@@ -271,9 +275,11 @@ async def controller():
 
 # Run multiple busses.
 async def main():
-    clear_buffer()
-    time.sleep(1)
-    clear_errors()
+    await clear_buffer()
+    await asyncio.sleep(1)
+    await clear_errors()
+    
+    set_limits()
     
     try:
         await asyncio.gather(

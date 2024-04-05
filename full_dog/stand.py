@@ -222,12 +222,12 @@ async def controller():
         #await asyncio.gather(*tasks)
         
         
-        set_idle()
+        await set_idle()
 
-        clear_buffer()
+        await clear_buffer()
         await asyncio.sleep(0.5)
 
-        set_idle()
+        await set_idle()
 
         """
         await set_closed_loop()

@@ -107,23 +107,27 @@ def print_positions():
     print(f"\033[{num_lines}A", end='')
 
     # Print the positions; these will overwrite the previous output
-    print(f"Front Left Knee Position: {format_position(front_left_knee.position)}")
-    print(f"Front Left Shoulder Position: {format_position(front_left_shoulder.position)}")
-    print(f"Front Left Hip Position: {format_position(front_left_hip.position)}")
-    print("      ")
-    print(f"Front Right Knee Position: {format_position(front_right_knee.position)}")
-    print(f"Front Right Shoulder Position: {format_position(front_right_shoulder.position)}")
-    print(f"Front Right Hip Position: {format_position(front_right_hip.position)}")
-    print("      ")
-    print(f"Back Left Knee Position: {format_position(back_left_knee.position)}")
-    print(f"Back Left Shoulder Position: {format_position(back_left_shoulder.position)}")
-    print(f"Back Left Hip Position: {format_position(back_left_hip.position)}")
-    print("      ")
-    print(f"Back Right Knee Position: {format_position(back_right_knee.position)}")
-    print(f"Back Right Shoulder Position: {format_position(back_right_shoulder.position)}")
-    print(f"Back Right Hip Position: {format_position(back_right_hip.position)}")
-    print("      ")
+    position_lines = [
+        f"Front Left Knee Position: {format_position(front_left_knee.position)}",
+        f"Front Left Shoulder Position: {format_position(front_left_shoulder.position)}",
+        f"Front Left Hip Position: {format_position(front_left_hip.position)}",
+        "      ",
+        f"Front Right Knee Position: {format_position(front_right_knee.position)}",
+        f"Front Right Shoulder Position: {format_position(front_right_shoulder.position)}",
+        f"Front Right Hip Position: {format_position(front_right_hip.position)}",
+        "      ",
+        f"Back Left Knee Position: {format_position(back_left_knee.position)}",
+        f"Back Left Shoulder Position: {format_position(back_left_shoulder.position)}",
+        f"Back Left Hip Position: {format_position(back_left_hip.position)}",
+        "      ",
+        f"Back Right Knee Position: {format_position(back_right_knee.position)}",
+        f"Back Right Shoulder Position: {format_position(back_right_shoulder.position)}",
+        f"Back Right Hip Position: {format_position(back_right_hip.position)}",
+        "      "
+    ]
 
+    # Print all position lines, then flush the output
+    print("\n".join(position_lines), end='', flush=True)
 
 async def clear_buffer():
     front_left_knee.flush_can_buffer()

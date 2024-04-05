@@ -179,6 +179,11 @@ async def calibrate():
     print("Calibration Complete: Absolute Position Set.")
 
 
+async def print_positions_continuously(duration, interval=1):
+    stop_at = datetime.now() + timedelta(seconds=duration)
+    while datetime.now() < stop_at:
+        print_positions()
+        await asyncio.sleep(interval)
 
 
 
@@ -213,7 +218,6 @@ async def controller():
         await asyncio.sleep(5)
         
         
-        
         hip_position = 1.7
         front_right_hip.set_position(hip_position)
         front_left_hip.set_position(-hip_position)
@@ -234,6 +238,7 @@ async def controller():
             move_joint_smoothly(back_left_shoulder, 0.1, -6.6),
             move_joint_smoothly(back_right_knee, 0.1, 7.9),
             move_joint_smoothly(back_right_shoulder, 0.1, 6.6),
+            print_positions_continuously(1000)
             # Add tasks for other joints as necessary
         ]
         
@@ -257,12 +262,7 @@ async def controller():
         await asyncio.sleep(2)
         """
 
-        #Run for set time delay example runs for 15 seconds.
-        stop_at = datetime.now() + timedelta(seconds=1000)
-        while datetime.now() < stop_at:
-            
-            print_positions()
-            await asyncio.sleep(0.5) #Need this for async to work.
+        
             #pass
         
             #odrive1.set_position(0)

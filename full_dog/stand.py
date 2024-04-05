@@ -11,47 +11,47 @@ back_left = [8, 7, 6]
 back_right = [9, 10, 11]
 
 
-front_left_knee = pyodrivecan.ODriveCAN(0)
+front_left_knee = pyodrivecan.ODriveCAN(0, canBitRate=1000000)
 front_left_knee.initCanBus()
 
-front_left_shoulder = pyodrivecan.ODriveCAN(1)
+front_left_shoulder = pyodrivecan.ODriveCAN(1, canBitRate=1000000)
 front_left_shoulder.initCanBus()
     
-front_left_hip = pyodrivecan.ODriveCAN(2)
+front_left_hip = pyodrivecan.ODriveCAN(2, canBitRate=1000000)
 front_left_hip.initCanBus()
     
 
 #Front Right 
-front_right_knee = pyodrivecan.ODriveCAN(5)
+front_right_knee = pyodrivecan.ODriveCAN(5, canBitRate=1000000)
 front_right_knee.initCanBus()
     
-front_right_shoulder = pyodrivecan.ODriveCAN(4)
+front_right_shoulder = pyodrivecan.ODriveCAN(4, canBitRate=1000000)
 front_right_shoulder.initCanBus()
 
-front_right_hip = pyodrivecan.ODriveCAN(3)
+front_right_hip = pyodrivecan.ODriveCAN(3, canBitRate=1000000)
 front_right_hip.initCanBus()
 
 
 #Back of Dog
 
 #Back Left 
-back_left_knee = pyodrivecan.ODriveCAN(6, canBusID="can1")
+back_left_knee = pyodrivecan.ODriveCAN(6, canBusID="can1", canBitRate=1000000)
 back_left_knee.initCanBus()
     
-back_left_shoulder = pyodrivecan.ODriveCAN(7, canBusID="can1")
+back_left_shoulder = pyodrivecan.ODriveCAN(7, canBusID="can1", canBitRate=1000000)
 back_left_shoulder.initCanBus()
     
-back_left_hip = pyodrivecan.ODriveCAN(8, canBusID="can1")
+back_left_hip = pyodrivecan.ODriveCAN(8, canBusID="can1", canBitRate=1000000)
 back_left_hip.initCanBus()
     
 #Back Right 
-back_right_knee = pyodrivecan.ODriveCAN(11, canBusID="can1")
+back_right_knee = pyodrivecan.ODriveCAN(11, canBusID="can1", canBitRate=1000000)
 back_right_knee.initCanBus() 
     
-back_right_shoulder = pyodrivecan.ODriveCAN(10, canBusID="can1")
+back_right_shoulder = pyodrivecan.ODriveCAN(10, canBusID="can1", canBitRate=1000000)
 back_right_shoulder.initCanBus()
 
-back_right_hip = pyodrivecan.ODriveCAN(9, canBusID="can1")
+back_right_hip = pyodrivecan.ODriveCAN(9, canBusID="can1", canBitRate=1000000)
 back_right_hip.initCanBus()
 
 # List of all your ODriveCAN instances

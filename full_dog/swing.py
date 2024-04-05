@@ -125,7 +125,7 @@ async def closedloop_lower():
         await asyncio.sleep(0.2)
 
 current_limit = 35.0
-velocity_limit = 20.0
+velocity_limit = 30.0
 
 def set_limits():
     for odrive in odrives:
@@ -220,7 +220,7 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
         await asyncio.sleep(sleep_time)
 
 
-async def leg_square_gait(leg, gait, delay=3):
+async def leg_square_gait(leg, gait, delay=1):
     while True:
         for position in gait:
             # Assuming leg is a list [knee, shoulder, hip]

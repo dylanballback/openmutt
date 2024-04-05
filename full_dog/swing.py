@@ -221,7 +221,7 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
         await asyncio.sleep(sleep_time)
 
 
-async def leg_square_gait(leg, gait, delay=1):
+async def leg_square_gait(leg, gait, delay=3):
     leg_name = ''
     # Determine which leg we are controlling based on the motors list
     if leg == front_right:

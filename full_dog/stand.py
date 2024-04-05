@@ -252,6 +252,8 @@ async def controller():
         set_idle()
         """
 
+        await set_closed_loop()
+
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
         while datetime.now() < stop_at:

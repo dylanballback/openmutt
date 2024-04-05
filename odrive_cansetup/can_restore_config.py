@@ -128,6 +128,8 @@ async def main():
                         node.reboot_msg(REBOOT_ACTION_SAVE)
 
                     await asyncio.sleep(0.1)  # small delay between configurations
+                    for i in range(3):
+                        print(" ")
 
 if __name__ == "__main__":
     asyncio.run(main())

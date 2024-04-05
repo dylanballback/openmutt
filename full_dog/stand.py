@@ -148,6 +148,17 @@ def bus_shutdown_all():
     for odrive in odrives:
         odrive.bus_shutdown()
 
+def save_config():
+    for odrive in odrives:
+        odrive.reboot_save(action="save")
+
+
+def calibrate():
+    set_limits()
+    set_idle()
+    save_config()
+    print("Calibration Complete")
+
 
 # Function to move a joint smoothly between a min and max position
 async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
@@ -164,12 +175,12 @@ async def controller():
         await asyncio.sleep(0.5)
         clear_errors()
         await asyncio.sleep(0.5)
-        clear_buffer()
-        await asyncio.sleep(0.5)
-        set_closed_loop()
-        await asyncio.sleep(0.5)
-        print_positions()
-        await asyncio.sleep(0.5)
+        #clear_buffer()
+        #await asyncio.sleep(0.5)
+        #set_closed_loop()
+        #await asyncio.sleep(0.5)
+        #print_positions()
+        #await asyncio.sleep(0.5)
         calibrate()
 
         """
@@ -227,7 +238,7 @@ async def controller():
         ]
 
         #await asyncio.gather(*tasks)
-        """
+        
 
         set_idle()
 
@@ -235,6 +246,7 @@ async def controller():
         await asyncio.sleep(0.5)
 
         set_idle()
+        """
 
         #Run for set time delay example runs for 15 seconds.
         stop_at = datetime.now() + timedelta(seconds=1000)
@@ -262,10 +274,6 @@ async def main():
     clear_buffer()
     time.sleep(1)
     clear_errors()
-
-    clear_buffer()
-    time.sleep(1)
-    set_limits()
     
     try:
         await asyncio.gather(

@@ -192,13 +192,15 @@ async def controller():
         print_positions()
         await asyncio.sleep(0.2)
         
-        await calibrate()
-        await asyncio.sleep(10)
+
+        # You must calibrate when the O-Drives are first powered up.
+        #await calibrate()
+        #await asyncio.sleep(2)
         
         
         await set_all_filtered_pos_control()
         #await closedlooop_lower()
-        await asyncio.sleep(2)
+        await asyncio.sleep(10)
         
         
         hip_position = 1.7

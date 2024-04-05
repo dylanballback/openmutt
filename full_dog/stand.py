@@ -187,13 +187,13 @@ async def controller():
         print_positions()
         await asyncio.sleep(0.5)
         
-        await calibrate()
+        #await calibrate()
         #await asyncio.sleep(2)
         
         
-        await set_all_filtered_pos_control()
+        #await set_all_filtered_pos_control()
 
-        await asyncio.sleep(5)
+        #await asyncio.sleep(5)
         
         """
         

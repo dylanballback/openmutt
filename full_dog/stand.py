@@ -206,7 +206,7 @@ async def controller():
 
         print("Moving")
         
-
+        """
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
             move_joint_smoothly(front_left_knee, 0.1, 7.9),
@@ -219,7 +219,8 @@ async def controller():
             move_joint_smoothly(back_right_shoulder, 0.1, 6.6),
             # Add tasks for other joints as necessary
         ]
-
+        """
+        
         #await asyncio.gather(*tasks)
         
         

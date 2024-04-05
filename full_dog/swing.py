@@ -3,7 +3,8 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
-square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
+square_gait_v1_back = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
+square_gait_v1_front = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
 
 #Node ID for each leg (goes from hip, shoulder, knee)
@@ -234,21 +235,30 @@ async def leg_square_gait(leg, gait, delay=1):
 
     # Define the multipliers for knee, shoulder, and hip for each leg
     multipliers = {
-        'front_right': (1, 1, 1),
-        'front_left': (-1, -1, -1),
+        'front_right': (-1, -1, 1),
+        'front_left': (1, 1, -1),
         'back_right': (1, 1, -1),
         'back_left': (-1, -1, 1),
+    }
+
+    # Define offsets for the front legs
+    offsets = {
+        'front_right': (4, 3.35),
+        'front_left': (4, 3.35),
     }
 
     # Get the multipliers for the current leg
     knee_mult, shoulder_mult, hip_mult = multipliers.get(leg_name, (1, 1, 1))
 
+    # Get the offsets for the front legs, default to (0, 0) if back leg
+    knee_offset, shoulder_offset = offsets.get(leg_name, (0, 0))
+
     while True:
         for position in gait:
-            # Apply the sign multipliers to the positions
-            knee_position = knee_mult * position[0]
-            shoulder_position = shoulder_mult * position[1]
-            hip_position = hip_mult * position[2]
+            # Apply offsets to the knee and shoulder positions for front legs
+            knee_position = (position[0] + knee_offset) * knee_mult
+            shoulder_position = (position[1] + shoulder_offset) * shoulder_mult
+            hip_position = position[2] * hip_mult
 
             # Set positions for each motor
             leg[0].set_position(knee_position)       # Knee
@@ -287,7 +297,7 @@ async def controller():
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
 
-        #await leg_square_gait(back_right, square_gait_v1)
+        """
 
         tasks = [
             leg_square_gait(front_left, square_gait_v1),
@@ -302,7 +312,7 @@ async def controller():
         # Testing just one (back left) leg with square gait
         #await asyncio.gather(leg_square_gait(back_left, square_gait_v1), print_positions_continuously(1000))
 
-        """
+        
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
             move_joint_smoothly(front_left_knee, 0.1, 7.9),
@@ -321,9 +331,9 @@ async def controller():
         await asyncio.gather(*tasks)
         """
 
-        #await idle_lower()
+        await idle_lower()
 
-        #await print_positions_continuously(1000)
+        await print_positions_continuously(1000)
         
         """
         await set_idle()

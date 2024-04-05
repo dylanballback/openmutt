@@ -243,8 +243,8 @@ async def leg_square_gait(leg, gait, delay=3):
 
     # Define offsets for the front legs
     offsets = {
-        'front_right': (4, 3.35),
-        'front_left': (4, 3.35),
+        'front_right': (5, 3.5),
+        'front_left': (5, 3.5),
     }
 
     # Get the multipliers for the current leg

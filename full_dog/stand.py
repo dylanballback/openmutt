@@ -120,39 +120,36 @@ def print_labels_once():
         labels_printed = True
 
 def print_positions():
-    global labels_printed
-    if not labels_printed:
-        print_labels_once()
-
     # Helper function to format the position
     def format_position(pos):
         return f"{pos:.3f}" if pos is not None else "Unknown"
 
+    # Assuming these objects are accessible in this scope
+    global front_left_knee, front_left_shoulder, front_left_hip
+    global front_right_knee, front_right_shoulder, front_right_hip
+    global back_left_knee, back_left_shoulder, back_left_hip
+    global back_right_knee, back_right_shoulder, back_right_hip
+
     positions = [
-        front_left_knee.position,
-        front_left_shoulder.position,
-        front_left_hip.position,
-        front_right_knee.position,
-        front_right_shoulder.position,
-        front_right_hip.position,
-        back_left_knee.position,
-        back_left_shoulder.position,
-        back_left_hip.position,
-        back_right_knee.position,
-        back_right_shoulder.position,
-        back_right_hip.position
+        ("Front Left Knee", front_left_knee.position),
+        ("Front Left Shoulder", front_left_shoulder.position),
+        ("Front Left Hip", front_left_hip.position),
+        ("Front Right Knee", front_right_knee.position),
+        ("Front Right Shoulder", front_right_shoulder.position),
+        ("Front Right Hip", front_right_hip.position),
+        ("Back Left Knee", back_left_knee.position),
+        ("Back Left Shoulder", back_left_shoulder.position),
+        ("Back Left Hip", back_left_hip.position),
+        ("Back Right Knee", back_right_knee.position),
+        ("Back Right Shoulder", back_right_shoulder.position),
+        ("Back Right Hip", back_right_hip.position)
     ]
 
-    # Move the cursor to the beginning of the printing area
-    print(f"\033[{len(positions) + 4}A")  # Adjust 4 to the number of extra lines printed
+    # Clear the screen or create enough buffer
+    print("\n" * 100)
 
-    # Update only the values
-    for i, position in enumerate(positions):
-        print(f"\033[K{format_position(position)}")  # Clear the line and print the position
-        if (i + 1) % 3 == 0:
-            print("\033[K      ")  # Extra spacing after every third position
-
-
+    for label, position in positions:
+        print(f"{label} Position: {format_position(position)}")
 
 
 
@@ -237,15 +234,15 @@ async def move_joint_smoothly(odrive, min_pos, max_pos, sleep_time=2):
 #Example of how you can create a controller to get data from the O-Drives and then send motor comands based on that data.
 async def controller():
         await clear_buffer()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         await clear_errors()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         #clear_buffer()
         #await asyncio.sleep(0.5)
         await set_closed_loop()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         print_positions()
-        await asyncio.sleep(0.5)
+        await asyncio.sleep(0.2)
         
         #await calibrate()
         #await asyncio.sleep(2)
@@ -253,7 +250,7 @@ async def controller():
         
         await set_all_filtered_pos_control()
         #await closedlooop_lower()
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
         
         
         hip_position = 1.7
@@ -261,7 +258,7 @@ async def controller():
         front_left_hip.set_position(-hip_position)
         back_right_hip.set_position(-hip_position)
         back_left_hip.set_position(hip_position)
-        await asyncio.sleep(5)
+        await asyncio.sleep(2)
 
         # At the start of your main loop or initialization section
         print_labels_once()

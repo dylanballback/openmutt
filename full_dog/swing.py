@@ -3,8 +3,8 @@ import asyncio
 from datetime import datetime, timedelta
 import time
 
-square_gait_v1_back = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
-square_gait_v1_front = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
+square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
+
 
 
 #Node ID for each leg (goes from hip, shoulder, knee)
@@ -297,7 +297,7 @@ async def controller():
         back_left_hip.set_position(hip_position)
         await asyncio.sleep(2)
 
-        """
+        
 
         tasks = [
             leg_square_gait(front_left, square_gait_v1),
@@ -312,7 +312,7 @@ async def controller():
         # Testing just one (back left) leg with square gait
         #await asyncio.gather(leg_square_gait(back_left, square_gait_v1), print_positions_continuously(1000))
 
-        
+        """
         # Create tasks for each joint to move smoothly between its ranges
         tasks = [
             move_joint_smoothly(front_left_knee, 0.1, 7.9),

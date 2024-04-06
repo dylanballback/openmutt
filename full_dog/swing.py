@@ -429,13 +429,16 @@ async def controller():
 
         stand()
 
+        await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
+
+
         # This is for setting a set of legs to idle and printing positions.
         #await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
         #await set_idle()
 
-        await print_positions_continuously(1000)
+        #await print_positions_continuously(1000)
         
         """
         

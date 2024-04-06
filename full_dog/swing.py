@@ -435,6 +435,7 @@ async def controller():
         front_right_shoulder.setAxisState("idle")
         back_left_knee.setAxisState("idle")
         back_left_shoulder.setAxisState("idle")
+        back_left_hip.setAxisState("idle")
         #await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
 
 

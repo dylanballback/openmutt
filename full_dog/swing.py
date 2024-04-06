@@ -429,7 +429,9 @@ async def controller():
 
         stand()
 
-        await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
+        front_right_knee.setAxisState("idle")
+        front_right_shoulder.setAxisState("idle")
+        #await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
 
 
         # This is for setting a set of legs to idle and printing positions.
@@ -438,7 +440,7 @@ async def controller():
         #await front_idle_lower()
         #await set_idle()
 
-        #await print_positions_continuously(1000)
+        await print_positions_continuously(1000)
         
         """
         

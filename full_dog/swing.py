@@ -17,6 +17,8 @@ stand_front_v3 =[[6.420, 4.909, 2.500]]
 stand_back_v4 = [[7.281, 5.215, 2.400]]
 stand_front_v4 =[[7.171, 5.262, 2.400]]
 
+front_right_up_down = [[7.171, 5.262, 2.400], [8.035, 5.579, 2.400]]
+#back_left_up_down = [[]]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -431,6 +433,8 @@ async def controller():
 
         front_right_knee.setAxisState("idle")
         front_right_shoulder.setAxisState("idle")
+        back_left_knee.setAxisState("idle")
+        back_left_shoulder.setAxisState("idle")
         #await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
 
 

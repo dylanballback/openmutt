@@ -19,7 +19,7 @@ stand_front_v4 =[[7.171, 5.262, 2.400]]
 
 front_right_up_down = [[7.171, 5.262, 2.400], [8.035, 5.579, 2.400]]
 back_left_up_down = [[7.281, 5.215, 2.400], [7.281, 5.225, 2.390]]
-back_left_up_position = [[7.281, 5.225, 2.390]]
+back_left_up_position = [7.281, 5.3, 2.4]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -361,10 +361,10 @@ async def controller():
         await asyncio.sleep(0.2)
         await clear_errors()
         await asyncio.sleep(0.2)
-        await clear_buffer()
-        await asyncio.sleep(0.5)
-        await set_closed_loop()
-        await asyncio.sleep(0.2)
+        #await clear_buffer()
+        #await asyncio.sleep(0.5)
+        #await set_closed_loop()
+        #await asyncio.sleep(0.2)
         
         #await set_closed_loop()
         #await asyncio.sleep(0.2)
@@ -439,6 +439,8 @@ async def controller():
         #back_left_hip.setAxisState("idle")
 
         set_leg_pos(back_left, back_left_up_position)
+        print("set back leg up")
+        await asyncio.sleep(5)
         await asyncio.gather(leg_square_gait(front_right, front_right_up_down), print_positions_continuously(1000))
 
 

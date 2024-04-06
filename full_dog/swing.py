@@ -18,7 +18,8 @@ stand_back_v4 = [[7.281, 5.215, 2.400]]
 stand_front_v4 =[[7.171, 5.262, 2.400]]
 
 front_right_up_down = [[7.171, 5.262, 2.400], [8.035, 5.579, 2.400]]
-#back_left_up_down = [[]]
+back_left_up_down = [[7.281, 5.215, 2.400], [7.281, 5.225, 2.390]]
+back_left_up_position = [[7.281, 5.225, 2.390]]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -431,12 +432,14 @@ async def controller():
 
         stand()
 
-        front_right_knee.setAxisState("idle")
-        front_right_shoulder.setAxisState("idle")
-        back_left_knee.setAxisState("idle")
-        back_left_shoulder.setAxisState("idle")
-        back_left_hip.setAxisState("idle")
-        #await asyncio.gather(leg_square_gait(front_right, front_square_gait_v1), print_positions_continuously(1000))
+        #front_right_knee.setAxisState("idle")
+        #front_right_shoulder.setAxisState("idle")
+        #back_left_knee.setAxisState("idle")
+        #back_left_shoulder.setAxisState("idle")
+        #back_left_hip.setAxisState("idle")
+
+        await set_leg_pos(back_left, back_left_up_position)
+        await asyncio.gather(leg_square_gait(front_right, front_right_up_down), print_positions_continuously(1000))
 
 
         # This is for setting a set of legs to idle and printing positions.

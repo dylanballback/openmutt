@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Robot Dog Monitor</title>
+<style>
+  /* Add your CSS here to position your motor data over the image */
+</style>
+<script>
+  // Add JavaScript to update motor data without refreshing the page
+</script>
+</head>
+<body>
+  <div id="robot-dog-image" style="position: relative;">
+    <img src="/path/to/robot-dog-image.png" alt="Robot Dog">
+    <!-- Dynamically position motor data over the image -->
+    {% for motor in motor_data %}
+      <span style="position: absolute; top: {{motor.y}}px; left: {{motor.x}}px;">
+        Motor {{motor.id}}: {{motor.value}}
+      </span>
+    {% endfor %}
+  </div>
+</body>
+</html>

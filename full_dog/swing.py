@@ -374,8 +374,8 @@ async def controller():
 
 
         # You must calibrate when the O-Drives are first powered up.
-        #await calibrate()
-        #await asyncio.sleep(10)
+        await calibrate()
+        await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
@@ -430,7 +430,7 @@ async def controller():
 
         #await idle_lower()
 
-        stand()
+        #stand()
 
         #front_right_knee.setAxisState("idle")
         #front_right_shoulder.setAxisState("idle")
@@ -438,10 +438,10 @@ async def controller():
         #back_left_shoulder.setAxisState("idle")
         #back_left_hip.setAxisState("idle")
 
-        set_leg_pos(back_left, back_left_up_position)
-        print("set back leg up")
-        await asyncio.sleep(5)
-        await asyncio.gather(leg_square_gait(front_right, front_right_up_down), print_positions_continuously(1000))
+        #set_leg_pos(back_left, back_left_up_position)
+        #print("set back leg up")
+        #await asyncio.sleep(5)
+       #await asyncio.gather(leg_square_gait(front_right, front_right_up_down), print_positions_continuously(1000))
 
 
         # This is for setting a set of legs to idle and printing positions.

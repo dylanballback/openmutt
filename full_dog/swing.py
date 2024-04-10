@@ -226,6 +226,9 @@ def print_positions():
     print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
               f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_right_knee.position)}, {format_position(back_right_shoulder.position)}, {format_position(back_right_hip.position)}", end='', flush=True)
 
+    #print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
+    #          f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_right_knee.position)}, {format_position(back_right_shoulder.position)}, {format_position(back_right_hip.position)}", end='', flush=True)
+
 
 async def clear_buffer():
     front_left_knee.flush_can_buffer()
@@ -374,8 +377,8 @@ async def controller():
 
 
         # You must calibrate when the O-Drives are first powered up.
-        await calibrate()
-        await asyncio.sleep(10)
+        #await calibrate()
+        #await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
@@ -430,7 +433,7 @@ async def controller():
 
         #await idle_lower()
 
-        #stand()
+        stand()
 
         #front_right_knee.setAxisState("idle")
         #front_right_shoulder.setAxisState("idle")

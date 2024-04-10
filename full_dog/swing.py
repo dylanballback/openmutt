@@ -17,6 +17,9 @@ stand_front_v3 =[[6.420, 4.909, 2.500]]
 stand_back_v4 = [[7.281, 5.215, 2.400]]
 stand_front_v4 =[[7.171, 5.262, 2.400]]
 
+front_right_up_down = [[7.171, 5.262, 2.400], [8.035, 5.579, 2.400]]
+back_left_up_down = [[7.281, 5.215, 2.400], [7.281, 5.225, 2.390]]
+back_left_up_position = [7.4, 5.3, 2.35]
 
 square_gait_v1 = [[1.231, 1.706, 2.500], [0.257, 1.193, 2.500], [0.102, 1.730, 2.500], [1.017, 2.235, 2.500]]
 
@@ -179,6 +182,7 @@ def stand():
     set_leg_pos(front_right, stand_front_v4)
     set_leg_pos(back_left, stand_back_v4)
     set_leg_pos(back_right, stand_back_v4)
+    print("Standing!")
 
 async def idle_lower():
     # Set Front and Back Knee and Shoulder Motors to Idle State
@@ -221,6 +225,9 @@ def print_positions():
     
     print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
               f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_right_knee.position)}, {format_position(back_right_shoulder.position)}, {format_position(back_right_hip.position)}", end='', flush=True)
+
+    #print(f"\rFront Left: {format_position(front_left_knee.position)}, {format_position(front_left_shoulder.position)}, {format_position(front_left_hip.position)}   Front Right: {format_position(front_right_knee.position)}, {format_position(front_right_shoulder.position)}, {format_position(front_right_hip.position)}   "
+    #          f"Back Left: {format_position(back_left_knee.position)}, {format_position(back_left_shoulder.position)}, {format_position(back_left_hip.position)}   Back Right: {format_position(back_right_knee.position)}, {format_position(back_right_shoulder.position)}, {format_position(back_right_hip.position)}", end='', flush=True)
 
 
 async def clear_buffer():
@@ -357,11 +364,18 @@ async def controller():
         await asyncio.sleep(0.2)
         await clear_errors()
         await asyncio.sleep(0.2)
-        #clear_buffer()
+        #await clear_buffer()
         #await asyncio.sleep(0.5)
         #await set_closed_loop()
         #await asyncio.sleep(0.2)
         
+        #await set_closed_loop()
+        #await asyncio.sleep(0.2)
+
+        #await set_closed_loop()
+        #await asyncio.sleep(0.2)
+
+
         # You must calibrate when the O-Drives are first powered up.
         #await calibrate()
         #await asyncio.sleep(10)
@@ -370,7 +384,8 @@ async def controller():
         await set_all_filtered_pos_control()
         #await closedloop_lower()
         await asyncio.sleep(2)
-        
+        #await set_all_filtered_pos_control()
+
         
         """
         hip_position = 2.4
@@ -420,15 +435,28 @@ async def controller():
 
         stand()
 
+        #front_right_knee.setAxisState("idle")
+        #front_right_shoulder.setAxisState("idle")
+        #back_left_knee.setAxisState("idle")
+        #back_left_shoulder.setAxisState("idle")
+        #back_left_hip.setAxisState("idle")
+
+        #set_leg_pos(back_left, back_left_up_position)
+        #print("set back leg up")
+        #await asyncio.sleep(5)
+       #await asyncio.gather(leg_square_gait(front_right, front_right_up_down), print_positions_continuously(1000))
+
+
         # This is for setting a set of legs to idle and printing positions.
         #await asyncio.gather(front_idle_lower(), back_idle_lower(), print_positions_continuously(1000))
 
         #await front_idle_lower()
-        
+        #await set_idle()
+
         await print_positions_continuously(1000)
         
         """
-        await set_idle()
+        
 
         await clear_buffer()
         await asyncio.sleep(0.5)

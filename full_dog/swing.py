@@ -377,8 +377,8 @@ async def controller():
 
 
         # You must calibrate when the O-Drives are first powered up.
-        #await calibrate()
-        #await asyncio.sleep(10)
+        await calibrate()
+        await asyncio.sleep(10)
         
         
         await set_all_filtered_pos_control()
@@ -433,7 +433,7 @@ async def controller():
 
         #await idle_lower()
 
-        stand()
+        #stand()
 
         #front_right_knee.setAxisState("idle")
         #front_right_shoulder.setAxisState("idle")

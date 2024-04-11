@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Robot Dog Monitor</title>
+<style>
+  #robot-dog-image {
+    position: relative;
+    display: inline-block; /* Makes sure the div wraps tightly around the image */
+  }
+  .motor-data-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .motor-data-table th,
+  .motor-data-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: left;
+  }
+
+  .motor-data-table th {
+      background-color: #f2f2f2;
+  }
+
+  .motor-data-table tr:nth-child(even) {
+      background-color: #f9f9f9;
+  }
+
+</style>
+</head>
+<body>
+  <form method="post" action="/" id="trial-id-form">
+    <label for="trial_id">Enter Trial ID:</label>
+    <input type="text" id="trial_id" name="trial_id" required>
+    <input type="submit" value="Load Data">
+  </form>
+
+  <div id="error-message" style="color: red;"></div>
+
+  <div id="robot-dog-image">
+    <img src="/static/openmutt_nodeID_diagram.png" alt="Robot Dog" width="1300" height="900">
+  </div>
+
+  <div id="time-slider-container">
+    <input type="range" id="time-slider" min="0" max="1" step="any" value="0">
+    <span id="slider-value">0</span> <!-- To display the current slider value -->
+  </div>
+
+  <div id="motor-data-container"></div>
+
+  <script>
+    document.getElementById('trial-id-form').addEventListener('submit', function(event) {
+        event.preventDefault();
+        var trial_id = document.getElementById('trial_id').value;
+        fetchMotorData(trial_id);  // Assuming this function does something with the trial_id
+        getTimeRange(trial_id);  // Fetch the time range and update the slider
+    });
+
+    function fetchMotorData(trial_id) {
+        // Implementation needed for what happens when motor data is fetched
+        // For now, just a placeholder function
+        console.log("Fetching motor data for trial_id:", trial_id);
+        // You can call getTimeRange here if needed, or do other actions
+    }
+
+    document.getElementById('time-slider').addEventListener('input', function(event) {
+            const trial_id = document.getElementById('trial_id').value;
+            const node_id = 0;  // Or however you choose to determine this
+            const time = parseFloat(event.target.value).toFixed(2); // Adjust toFixed() as needed
+            fetchPositionData(trial_id, node_id, time);
+        });
+
+        function fetchPositionData(trial_id, node_id, time) {
+        fetch('/get_position_data', {
+            method: 'POST',
+            body: JSON.stringify({ trial_id: trial_id, node_id: node_id, time: time }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (!Array.isArray(data)) {
+                console.error('Expected an array but got:', data);
+                throw new TypeError('Expected an array for motor data');
+            }
+            updateMotorPositions(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('error-message').textContent = error.message;
+        });
+    }
+
+    
+    function updateMotorPositions(motorData) {
+        var containerDiv = document.getElementById('motor-data-container');
+        containerDiv.innerHTML = '';  // Clear previous contents
+
+        if (motorData.length === 0) {
+            containerDiv.textContent = 'No data available for this time range.';
+            return;
+        }
+
+        // Create a table element
+        var table = document.createElement('table');
+        table.className = 'motor-data-table';
+
+        // Add a header row
+        var headerRow = table.insertRow();
+        var headers = ['Position', 'Velocity', 'Torque Target', 'Torque Estimate', 'Bus Voltage', 'Bus Current', 'IQ Setpoint', 'IQ Measured', 'Electrical Power', 'Mechanical Power', 'FET Temperature', 'Motor Temperature'];
+        headers.forEach(function(header) {
+            var th = document.createElement('th');
+            th.textContent = header;
+            headerRow.appendChild(th);
+        });
+
+        // Add a row for each motor data point
+        motorData.forEach(function(motor) {
+            var row = table.insertRow();
+            Object.keys(motor).forEach(function(key) {
+                var cell = row.insertCell();
+                cell.textContent = motor[key].toFixed(3);  // Assuming all values are numbers and should be fixed to 3 decimal places
+            });
+        });
+
+        // Append the table to the container div
+        containerDiv.appendChild(table);
+    }
+
+
+    function getTimeRange(trial_id) {
+        fetch('/get_time_range', {
+            method: 'POST',
+            body: JSON.stringify({ trial_id: trial_id }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(range => {
+            updateTimeSliderRange(range);
+        })
+        .catch(error => console.error('Error:', error));
+    }
+
+    function updateTimeSliderRange(range) {
+        const slider = document.getElementById('time-slider');
+        const sliderValue = document.getElementById('slider-value');
+        slider.min = range.min;
+        slider.max = range.max;
+        slider.value = range.min; // Set to the min time initially
+        sliderValue.textContent = range.min;
+
+        slider.oninput = function() {
+            sliderValue.textContent = this.value;
+        }
+    }
+  </script>
+</body>
+</html>

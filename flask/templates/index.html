@@ -125,9 +125,11 @@
         // Add a row for each motor data point
         motorData.forEach(function(motor) {
             var row = table.insertRow();
-            Object.keys(motor).forEach(function(key) {
+            headers.forEach(function(key) {
                 var cell = row.insertCell();
-                cell.textContent = motor[key].toFixed(3);  // Assuming all values are numbers and should be fixed to 3 decimal places
+                var value = motor[key.toLowerCase().replace(/ /g, '_')]; // Transform header to match key in motor object
+                // Check if value is a number and not null before calling toFixed
+                cell.textContent = (typeof value === 'number') ? value.toFixed(3) : 'N/A';
             });
         });
 
